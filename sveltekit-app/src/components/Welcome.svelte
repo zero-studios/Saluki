@@ -1,6 +1,6 @@
 <div class="welcome__container">
 	<div class="logos">
-		<div class="logos__blur" />
+		<div class="logos__blur"></div>
 		<img class="logos__entry" src="/svelte.svg" alt="Svelte Logo" />
 		<span class="logos__plus">+</span>
 		<img class="logos__entry" src="/sanity.svg" alt="Sanity Logo" />
@@ -13,7 +13,7 @@
 				<p class="steps__text">Visit the Sanity Studio and publish a new document of type post.</p>
 			</li>
 			<li class="steps__entry">
-				<h3 class="step__title">Dive into the documentation</h3>
+				<h3 class="step__title bg-slate-400">Dive into the documentation</h3>
 				<p class="steps__text">
 					Check out{' '}
 					<a target="_blank" rel="noopener noreferrer nofollow" href="https://www.sanity.io/docs">

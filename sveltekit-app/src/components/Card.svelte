@@ -1,9 +1,14 @@
 <script lang="ts">
-	import { formatDate } from '$lib/utils';
+	// import { formatDate } from '$lib/utils';
 	import { urlFor } from '$lib/sanity/image';
 	import type { Post } from '$lib/sanity/queries';
+	import Button from '$lib/components/ui/button/button.svelte';
 
-	export let post: Post;
+	interface Props {
+		post: Post;
+	}
+
+	let { post }: Props = $props();
 </script>
 
 <a class="card" href={`/post/${post.slug.current}`}>
@@ -14,7 +19,7 @@
 			alt="Cover image for {post.title}"
 		/>
 	{:else}
-		<div class="card__cover--none" />
+		<div class="card__cover--none"></div>
 	{/if}
 
 	<div class="card__container">
@@ -25,8 +30,10 @@
 			<p class="card__excerpt">{post.excerpt}</p>
 		{/if}
 		<p class="card__date">
-			{formatDate(post._createdAt)}
+			<!-- {formatDate(post._createdAt)} -->
+			1/1//1111
 		</p>
+		<Button>Read more</Button>
 	</div>
 </a>
 

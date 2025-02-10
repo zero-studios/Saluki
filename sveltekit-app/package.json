@@ -10,10 +10,12 @@
 		"format": "prettier --plugin-search-dir . --write ."
 	},
 	"dependencies": {
+		"@neondatabase/serverless": "^0.10.4",
 		"@sanity/client": "^6.15.4",
 		"@sanity/image-url": "^1.0.2",
-		"@sanity/svelte-loader": "^1.11.1",
+		"@sanity/svelte-loader": "^1.13.16",
 		"@sanity/visual-editing": "^2.0.0",
+		"dotenv": "^16.4.7",
 		"groq": "^3.33.0"
 	},
 	"devDependencies": {
@@ -21,21 +23,32 @@
 		"@portabletext/types": "^2.0.13",
 		"@sanity/types": "^3.52.4",
 		"@sveltejs/adapter-auto": "^3.2.2",
+		"@sveltejs/adapter-vercel": "^5.6.1",
 		"@sveltejs/kit": "^2.9.0",
-		"@sveltejs/vite-plugin-svelte": "^3.1.1",
+		"@sveltejs/vite-plugin-svelte": "^4.0.0",
+		"@tailwindcss/container-queries": "^0.1.1",
+		"@tailwindcss/typography": "^0.5.16",
 		"@typescript-eslint/eslint-plugin": "^6.21.0",
 		"@typescript-eslint/parser": "^6.21.0",
 		"autoprefixer": "^10.4.20",
+		"bits-ui": "^1.0.0-next.86",
+		"clsx": "^2.1.1",
 		"eslint": "^8.57.0",
 		"eslint-config-prettier": "^9.1.0",
-		"eslint-plugin-svelte": "^2.43.0",
+		"eslint-plugin-svelte": "^2.45.1",
 		"postcss": "^8.4.41",
 		"prettier": "^3.3.3",
 		"prettier-plugin-svelte": "^3.2.6",
-		"svelte": "^4.2.18",
+		"prettier-plugin-tailwindcss": "^0.6.10",
+		"svelte": "^5.0.0",
+		"tailwind-merge": "^3.0.1",
+		"tailwind-variants": "^0.3.1",
+		"tailwindcss": "^3.4.17",
+		"tailwindcss-animate": "^1.0.7",
 		"tslib": "^2.6.3",
+		"tsx": "^4.19.2",
 		"typescript": "^5.5.3",
-		"vite": "^5.3.5"
+		"vite": "^5.4.4"
 	},
 	"type": "module"
 }

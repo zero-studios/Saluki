@@ -10,7 +10,7 @@ const dataset = process.env.SANITY_STUDIO_DATASET!
 
 export default defineConfig({
   name: 'sanity-template-sveltekit-clean',
-  title: 'Clean SvelteKit + Sanity app',
+  title: 'Wayfinder',
   projectId,
   dataset,
   plugins: [
