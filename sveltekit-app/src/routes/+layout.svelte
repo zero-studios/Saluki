@@ -1,7 +1,7 @@
 <script lang="ts">
 	import "../app.css";
 	import { isPreviewing, VisualEditing } from '@sanity/visual-editing/svelte';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import LiveMode from '../components/LiveMode.svelte';
 	interface Props {
 	    children?: import('svelte').Snippet;
@@ -11,7 +11,7 @@
 </script>
 
 {#if $isPreviewing}
-	<a href={`/preview/disable?redirect=${$page.url.pathname}`} class="preview-toggle">
+	<a href={`/preview/disable?redirect=${page.url.pathname}`} class="preview-toggle">
 		<span>Preview Enabled</span>
 		<span>Disable Preview</span>
 	</a>
