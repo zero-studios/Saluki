@@ -1,4 +1,9 @@
-# Clean SvelteKit + Sanity app
+<picture>
+	<source media="(prefers-color-scheme: dark)" srcset="assets/saluki.jpg">
+	<img src="assets/banner.png" alt="Svelte - web development for the rest of us" />
+</picture>
+
+# Saluki
 
 This template includes a [SvelteKit](https://svelte.dev/docs/kit/introduction) app with a [Sanity Studio](https://www.sanity.io/) – an open-source React application that connects to your Sanity project’s hosted dataset. The Studio is configured locally and can then be deployed for content collaboration.
 
