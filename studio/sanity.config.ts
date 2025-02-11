@@ -9,8 +9,8 @@ const projectId = process.env.SANITY_STUDIO_PROJECT_ID!
 const dataset = process.env.SANITY_STUDIO_DATASET!
 
 export default defineConfig({
-  name: 'sanity-template-sveltekit-clean',
-  title: 'Wayfinder',
+  name: 'saluki',
+  title: 'Saluki',
   projectId,
   dataset,
   plugins: [
