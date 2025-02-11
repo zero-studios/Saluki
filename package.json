@@ -8,7 +8,8 @@
   ],
   "scripts": {
     "dev": "concurrently \"npm run dev --workspace=sveltekit-app\" \"npm run dev --workspace=studio\"",
-    "format": "prettier --cache --write ."
+    "format": "prettier --cache --write .",
+    "validate": "sanity-template-validate"
   },
   "prettier": {
     "plugins": [
@@ -18,6 +19,7 @@
     "singleQuote": true
   },
   "devDependencies": {
+    "@sanity/template-validator": "^2.4.0",
     "concurrently": "^9.1.0",
     "prettier": "3.3.3",
     "prettier-plugin-packagejson": "2.5.1"
