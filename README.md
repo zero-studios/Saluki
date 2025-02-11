@@ -1,23 +1,21 @@
 <picture>
 	<source media="(prefers-color-scheme: dark)" srcset="assets/saluki.jpg">
-	<img src="assets/banner.png" alt="Svelte - web development for the rest of us" />
+	<img src="assets/banner.png" alt="A gorgeous Saluki proudly prances in delight knowing how useful this Sanity/Svelte template is." />
 </picture>
 
 # Saluki
 
-This template includes a [SvelteKit](https://svelte.dev/docs/kit/introduction) app with a [Sanity Studio](https://www.sanity.io/) – an open-source React application that connects to your Sanity project’s hosted dataset. The Studio is configured locally and can then be deployed for content collaboration.
+This template includes a [SvelteKit](https://svelte.dev/docs/kit/introduction) app with a [Sanity Studio](https://www.sanity.io/).
 
-## Features
+## Includes
 
-- Fetch content seamlessly with [Sanity Content Lake](https://www.sanity.io/docs/datastore).
-- Render beautiful block content using [Portable Text](https://www.sanity.io/docs/presenting-block-text).
-- Manage and create content with the intuitive [Sanity Studio](https://www.sanity.io/docs/sanity-studio).
-- Live visual editing through [Sanity's Presentation tools](https://www.sanity.io/docs/presentation).
-- Advanced image cropping and rendering via [Sanity Image URLs](https://www.sanity.io/docs/image-url).
+- Svelte v5
+- Tailwind v3
+- SvelteKit v2
+- Vercel Adapter & Image Optimization
+- [Shadcn-svelte](https://www.shadcn-svelte.com/)
 
-## Demo
-
-https://sanity-template-sveltekit-clean.sanity.build
+Recommended for use with node `v22.13.1`.
 
 ## Getting Started
 
@@ -30,7 +28,7 @@ Run the command in your Terminal to initialize this template on your local compu
 See the documentation if you are [having issues with the CLI](https://www.sanity.io/help/cli-errors).
 
 ```shell
-npm create sanity@latest -- --template sanity-io/sanity-template-sveltekit-clean
+npm create sanity@latest -- --project <SANITY_PROJECT_ID> --dataset production --template zero-studios/Saluki
 ```
 
 #### 2. Run the application and Sanity Studio
@@ -92,5 +90,6 @@ They will be able to access the deployed Studio, where you can collaborate toget
 
 - [Sanity documentation](https://www.sanity.io/docs/)
 - [SvelteKit documentation](https://svelte.dev/docs/kit/introduction/)
-- [Join the Sanity Community](https://slack.sanity.io)
 - [Learn Sanity](https://www.sanity.io/learn)
+- [Tailwind v3 documentation](https://v3.tailwindcss.com/)
+- [Shadcn-svelte5 documentation](https://next.shadcn-svelte.com/)
