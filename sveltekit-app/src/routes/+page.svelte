@@ -12,7 +12,6 @@
 	const q = useQuery(data);
 
 	let { data: posts } = $derived($q);
-
 </script>
 
 <section>

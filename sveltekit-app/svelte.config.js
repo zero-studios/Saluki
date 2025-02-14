@@ -15,8 +15,8 @@ const config = {
 		adapter: adapter(),
 		prerender: {
 			crawl: false,
-			entries: ['/', '/funds'],
-		},
+			entries: ['/', '/funds']
+		}
 	}
 };
 
