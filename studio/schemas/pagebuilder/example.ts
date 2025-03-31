@@ -28,6 +28,11 @@ export default defineType({
       type: 'image',
     }),
     defineField({
+      name: 'video',
+      title: 'Video',
+      type: 'file',
+    }),
+    defineField({
       name: 'alt',
       title: 'Alt Text',
       type: 'string',
