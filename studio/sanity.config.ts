@@ -2,6 +2,8 @@ import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
 import {colorInput} from '@sanity/color-input'
+import { vercelDeployTool } from 'sanity-plugin-vercel-deploy'
+
 import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 
 import {schemaTypes} from './schemas'
@@ -35,6 +37,8 @@ export default defineConfig({
           ]),
     }),
     visionTool(),
+    vercelDeployTool(),
+
   ],
   schema: {
     types: schemaTypes,
