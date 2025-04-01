@@ -2,10 +2,9 @@ import type { PageServerLoad, EntryGenerator } from './$types';
 import { pageQuery, pagesQuery } from '$lib/sanity/queries';
 import type { Page } from '$lib/sanity/types';
 import { serverClient } from '$lib/server/sanity/client';
+import { USE_PRERENDER } from '$env/static/private';
 
-
-
-export const prerender = import.meta.env.USE_PRERENDER===1 ? true : false;
+export const prerender = USE_PRERENDER==="1" ? true : false;
 
 export const load: PageServerLoad = async (event) => {
 	const { loadQuery } = event.locals;
@@ -24,6 +23,7 @@ export const load: PageServerLoad = async (event) => {
 		pageQuery,
 		pageData,
 		params,
+		prerender
 	};
 };
 

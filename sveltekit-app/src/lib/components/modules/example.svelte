@@ -15,7 +15,7 @@
     {#if sanity_obj.image}
     <img src={urlFor(sanity_obj.image).url()} alt={sanity_obj.title} />
 {/if}
-    <h1>{sanity_obj.title}</h1>
+    <h1>{sanity_obj.heading}</h1>
     <div class="richtext-container">
         <PortableText
             components={{}}
