@@ -1,15 +1,26 @@
-// import { postsQuery as query, type Post } from '$lib/sanity/queries';
 import type { PageServerLoad } from './$types';
+import { homeQuery } from '$lib/sanity/queries';
+import type { Page } from '$lib/sanity/types';
+import { USE_PRERENDER } from '$env/static/private';
+
+export const prerender = USE_PRERENDER==="1" ? true : false;
 
 export const load: PageServerLoad = async (event) => {
-	//const { loadQuery } = event.locals;
-	//const initial = await loadQuery<Post[]>(query);
+	const { loadQuery } = event.locals;
+	const { slug } = event.params;
 
-	// We pass the data in a format that is easy for `useQuery` to consume in the
-	// corresponding `+page.svelte` file, but you can return the data in any
-	// format you like.
+	const params = { slug };
+
+	const pageData = await loadQuery<Page>(homeQuery, params);
+	if (!pageData) {
+		return {
+			status: 404,
+			error: new Error('Page not found'),
+		};
+	}
 	return {
-		// query,
-		//options: { initial }
+		pageData,
+		params,
+		prerender
 	};
 };

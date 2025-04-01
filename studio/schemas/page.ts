@@ -55,4 +55,5 @@ export default defineType({
         title: 'title',
       },
     },
+
   })
