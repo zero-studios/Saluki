@@ -26,4 +26,10 @@ export const seoFields = [
     type: 'image',
     group: 'seo',
   }),
+  defineField({
+    name: 'og_image_alt',
+    title: 'Open Graph Image Alt',
+    type: 'string',
+    group: 'seo',
+  }),
 ]

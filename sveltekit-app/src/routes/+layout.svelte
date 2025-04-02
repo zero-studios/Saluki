@@ -1,11 +1,18 @@
 <script lang="ts">
 	import "../app.css";
 	import { page } from '$app/state';
+	import { MetaTags, deepMerge } from 'svelte-meta-tags';
+
 	interface Props {
 	    children?: import('svelte').Snippet;
+		data: {
+			baseMetaTags: MetaTags;
+		}
 	}
-	
-	let { children }: Props = $props();
+	let { data, children }:Props = $props();
+
+	let metaTags = $derived(deepMerge(data.baseMetaTags, page.data.pageMetaTags));
+
 </script>
 
 <div class="container">
@@ -35,6 +42,7 @@
 	</footer>
 </div>
 
+<MetaTags {...metaTags} />
 <style>
 	.container {
 		margin: 0 auto;

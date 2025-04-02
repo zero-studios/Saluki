@@ -166,6 +166,9 @@ importers:
       svelte:
         specifier: ^5.0.0
         version: 5.25.3
+      svelte-meta-tags:
+        specifier: ^4.2.0
+        version: 4.2.0(svelte@5.25.3)
       tailwind-merge:
         specifier: ^3.0.1
         version: 3.0.2
@@ -5333,6 +5336,9 @@ packages:
   scheduler@0.23.2:
     resolution: {integrity: sha512-UOShsPwz7NrMUqhR6t0hWjFduvOzbtv7toDH1/hIrfRNIDBnnBWd0CwJTGvTpngVlmwGCdP9/Zl/tVrDqcuYzQ==}
 
+  schema-dts@1.1.5:
+    resolution: {integrity: sha512-RJr9EaCmsLzBX2NDiO5Z3ux2BVosNZN5jo0gWgsyKvxKIUL5R3swNvoorulAeL9kLB0iTSX7V6aokhla2m7xbg==}
+
   scroll-into-view-if-needed@3.1.0:
     resolution: {integrity: sha512-49oNpRjWRvnU8NyGVmUaYG4jtTkNonFZI86MmGRDqBphEK2EXT9gdEUoQPZhuBM8yWHxCWbobltqYO5M4XrUvQ==}
 
@@ -5623,6 +5629,11 @@ packages:
     peerDependenciesMeta:
       svelte:
         optional: true
+
+  svelte-meta-tags@4.2.0:
+    resolution: {integrity: sha512-VFnbdN4CNLeGaiRK++mhHKm/otgId3qM0hY6fu6vhh+e+jGE9Xr3kSUjgKAEnquktskEjUEo7W0ek7EANsyTHw==}
+    peerDependencies:
+      svelte: ^5.0.0
 
   svelte-toolbelt@0.7.1:
     resolution: {integrity: sha512-HcBOcR17Vx9bjaOceUvxkY3nGmbBmCBBbuWLLEWO6jtmWH8f/QoWmbyUfQZrpDINH39en1b8mptfPQT9VKQ1xQ==}
@@ -12034,6 +12045,8 @@ snapshots:
     dependencies:
       loose-envify: 1.4.0
 
+  schema-dts@1.1.5: {}
+
   scroll-into-view-if-needed@3.1.0:
     dependencies:
       compute-scroll-into-view: 3.1.1
@@ -12379,6 +12392,11 @@ snapshots:
       postcss: 8.5.3
       postcss-scss: 4.0.9(postcss@8.5.3)
     optionalDependencies:
+      svelte: 5.25.3
+
+  svelte-meta-tags@4.2.0(svelte@5.25.3):
+    dependencies:
+      schema-dts: 1.1.5
       svelte: 5.25.3
 
   svelte-toolbelt@0.7.1(svelte@5.25.3):

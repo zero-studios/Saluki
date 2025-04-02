@@ -1,10 +1,29 @@
-import type { LayoutServerLoad } from './$types';
+import type { MetaTagsProps } from 'svelte-meta-tags';
 
-export const load: LayoutServerLoad = (event) => {
-	// The `event.locals.preview` value received here is set by the helper function
-	// in `hooks.server.ts`. It indicates whether the app is in preview mode or not.
-	const { preview } = event.locals;
-	// As `event.locals` is only available on the server, we can expose the value
-	// to the client by returning it here.
-	return { preview };
+export const load: LayoutServerLoad = ({ url }) => {
+	const baseMetaTags = Object.freeze({
+		title: 'Zero',
+		titleTemplate: '%s | Saluki',
+		description: 'Svelte Meta Tags is a Svelte component for managing meta tags and SEO in your Svelte applications.',
+		canonical: new URL(url.pathname, url.origin).href,
+		openGraph: {
+		  type: 'website',
+		  url: new URL(url.pathname, url.origin).href,
+		  locale: 'en_IE',
+		  title: 'Open Graph Title',
+		  description: 'Open Graph Description',
+		  siteName: 'SiteName',
+		  images: [
+			{
+			  url: 'https://www.example.ie/og-image.jpg',
+			  alt: 'Og Image Alt',
+			  width: 800,
+			  height: 600,
+			  secureUrl: 'https://www.example.ie/og-image.jpg',
+			  type: 'image/jpeg'
+			}
+		  ]
+		}
+	  }) satisfies MetaTagsProps;
+	return { baseMetaTags };
 };
