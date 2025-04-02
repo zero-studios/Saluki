@@ -1,29 +1,40 @@
 import type { MetaTagsProps } from 'svelte-meta-tags';
+import { settingsQuery } from '$lib/sanity/queries';
+import type { Settings } from '$lib/sanity/types';
+import { urlFor } from '$lib/sanity/image';
 
-export const load: LayoutServerLoad = ({ url }) => {
+
+export const load: LayoutServerLoad = async (event) => {
+
+	const { loadQuery } = event.locals;
+	const { slug } = event.params;
+
+	const params = { slug };
+
+	const { data } = await loadQuery<Settings>(settingsQuery, params);
+	
 	const baseMetaTags = Object.freeze({
-		title: 'Zero',
-		titleTemplate: '%s | Saluki',
-		description: 'Svelte Meta Tags is a Svelte component for managing meta tags and SEO in your Svelte applications.',
-		canonical: new URL(url.pathname, url.origin).href,
+		title: data.meta_title || 'Saluki',
+		titleTemplate: `%s | ${data.meta_title}`,
+		description: data.meta_description,
+		canonical: new URL(event.url.pathname, event.url.origin).href,
 		openGraph: {
 		  type: 'website',
-		  url: new URL(url.pathname, url.origin).href,
+		  url: new URL(event.url.pathname, event.url.origin).href,
 		  locale: 'en_IE',
-		  title: 'Open Graph Title',
-		  description: 'Open Graph Description',
-		  siteName: 'SiteName',
+		  title: data.meta_title,
+		  description: data.meta_description,
+		  siteName: data.meta_title,
 		  images: [
 			{
-			  url: 'https://www.example.ie/og-image.jpg',
+			  url: data.og_image ? urlFor(data.og_image).url() : "",
 			  alt: 'Og Image Alt',
 			  width: 800,
 			  height: 600,
-			  secureUrl: 'https://www.example.ie/og-image.jpg',
 			  type: 'image/jpeg'
 			}
 		  ]
 		}
 	  }) satisfies MetaTagsProps;
-	return { baseMetaTags };
+	return { baseMetaTags, favicon: data.site_favicon ? urlFor(data.site_favicon).url() : "", site_scripts: data.site_scripts};
 };

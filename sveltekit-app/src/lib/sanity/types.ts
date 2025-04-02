@@ -62,3 +62,16 @@ export interface Page {
     meta_keywords?: string[];
     og_image?: ImageAsset;
 }
+
+export interface Settings {
+    _type: 'settings';
+    _createdAt: string;
+    meta_title?: string;
+    meta_description?: string;
+    meta_keywords?: string[];
+    site_favicon?: ImageAsset;
+	og_image?: ImageAsset;
+	gaID?: string;
+	fbID?: string;
+	site_scripts?: string;
+}

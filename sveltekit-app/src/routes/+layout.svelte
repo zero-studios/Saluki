@@ -2,11 +2,14 @@
 	import "../app.css";
 	import { page } from '$app/state';
 	import { MetaTags, deepMerge } from 'svelte-meta-tags';
+	import { dataset } from "$lib/sanity/api";
 
 	interface Props {
 	    children?: import('svelte').Snippet;
 		data: {
 			baseMetaTags: MetaTags;
+			favicon:string;
+			site_scripts:string;
 		}
 	}
 	let { data, children }:Props = $props();
@@ -14,6 +17,11 @@
 	let metaTags = $derived(deepMerge(data.baseMetaTags, page.data.pageMetaTags));
 
 </script>
+
+<svelte:head>
+	<link rel="icon" href={data.favicon} />
+	{@html data.site_scripts}
+</svelte:head>
 
 <div class="container">
 	<header class="header">
