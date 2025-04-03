@@ -13,6 +13,13 @@ export default defineType({
       readOnly: true,
     }),
     defineField({
+      name: 'example',
+      title: 'Example Content:',
+      type: 'image',
+      readOnly: true,
+      initialValue: {_type: 'image', asset: {_type: 'reference', _ref: 'image-6c0ede86890f950f37a313da75cf62755f3395f5-1520x798-png'}}
+    }),
+    defineField({
       name: 'heading',
       title: 'Heading',
       type: 'string',
