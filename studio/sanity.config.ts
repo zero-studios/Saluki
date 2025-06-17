@@ -1,7 +1,11 @@
 import {visionTool} from '@sanity/vision'
 import {defineConfig} from 'sanity'
 import {structureTool} from 'sanity/structure'
-import {presentationTool} from 'sanity/presentation'
+import {colorInput} from '@sanity/color-input'
+import { CogIcon } from "@sanity/icons";
+import { vercelDeployTool } from 'sanity-plugin-vercel-deploy'
+
+import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 
 import {schemaTypes} from './schemas'
 
@@ -14,19 +18,47 @@ export default defineConfig({
   projectId,
   dataset,
   plugins: [
-    structureTool(),
-    presentationTool({
-      previewUrl: {
-        origin: process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:5173',
-        previewMode: {
-          enable: '/preview/enable',
-          disable: '/preview/disable',
-        },
-      },
+    colorInput(),
+
+    structureTool({
+      name: 'default',
+      title: 'Structure',
+      structure: (S) =>
+        S.list()
+          .title('Content')
+          .items([
+            S.listItem()
+            .title("Settings")
+            .id("settings")
+            .icon(CogIcon)
+            .child(
+              S.document()
+                .schemaType("settings")
+                .documentId("settings")
+            ),
+            S.divider(),
+
+            S.listItem()
+              .title('Pages')
+              .schemaType('page')
+              .child(S.documentTypeList('page').title('Pages')),
+
+            
+          ]),
     }),
     visionTool(),
+    vercelDeployTool(),
+
   ],
   schema: {
     types: schemaTypes,
   },
+  document: {
+    actions: (prev, { schemaType }) => {
+      if (schemaType === 'settings') {
+        return prev.filter((obj) => obj.action === 'publish');
+      }
+      return prev;
+    }
+  }
 })

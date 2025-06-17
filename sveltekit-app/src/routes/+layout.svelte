@@ -1,21 +1,27 @@
 <script lang="ts">
 	import "../app.css";
-	import { isPreviewing, VisualEditing } from '@sanity/visual-editing/svelte';
 	import { page } from '$app/state';
-	import LiveMode from '$lib/sanity/LiveMode.svelte';
+	import { MetaTags, deepMerge } from 'svelte-meta-tags';
+	import { dataset } from "$lib/sanity/api";
+
 	interface Props {
 	    children?: import('svelte').Snippet;
+		data: {
+			baseMetaTags: MetaTags;
+			favicon:string;
+			site_scripts:string;
+		}
 	}
-	
-	let { children }: Props = $props();
+	let { data, children }:Props = $props();
+
+	let metaTags = $derived(deepMerge(data.baseMetaTags, page.data.pageMetaTags));
+
 </script>
 
-{#if $isPreviewing}
-	<a href={`/preview/disable?redirect=${page.url.pathname}`} class="preview-toggle">
-		<span>Preview Enabled</span>
-		<span>Disable Preview</span>
-	</a>
-{/if}
+<svelte:head>
+	<link rel="icon" href={data.favicon} />
+	{@html data.site_scripts}
+</svelte:head>
 
 <div class="container">
 	<header class="header">
@@ -44,11 +50,7 @@
 	</footer>
 </div>
 
-{#if $isPreviewing}
-	<VisualEditing />
-	<LiveMode />
-{/if}
-
+<MetaTags {...metaTags} />
 <style>
 	.container {
 		margin: 0 auto;

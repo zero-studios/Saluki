@@ -1,8 +1,9 @@
-import type { PageServerLoad } from './$types';
-import { homeQuery } from '$lib/sanity/queries';
+import type { PageServerLoad, EntryGenerator } from './$types';
+import { pageQuery, pagesQuery } from '$lib/sanity/queries';
 import type { MetaTagsProps } from 'svelte-meta-tags';
 import { urlFor } from '$lib/sanity/image';
 import type { Page } from '$lib/sanity/types';
+import { serverClient } from '$lib/server/sanity/client';
 import { USE_PRERENDER } from '$env/static/private';
 
 export const prerender = USE_PRERENDER==="1" ? true : false;
@@ -13,7 +14,7 @@ export const load: PageServerLoad = async (event) => {
 
 	const params = { slug };
 
-	const pageData = await loadQuery<Page>(homeQuery, params);
+	const pageData = await loadQuery<Page>(pageQuery, params);
 
 	const pageMetaTags = Object.freeze({
 		title: pageData?.data.meta_title || ':)',
@@ -44,9 +45,26 @@ export const load: PageServerLoad = async (event) => {
 		};
 	}
 	return {
+		pageQuery,
 		pageData,
 		params,
 		prerender,
 		pageMetaTags,
 	};
+};
+
+export const entries: EntryGenerator = async () => {
+	let page_entries = [];
+
+	try {
+		page_entries = await serverClient.fetch(pagesQuery);
+	} catch (error) {
+		console.error(error);
+	}
+
+	const page_routes = page_entries.map((page) => ({
+		slug: page.slug.current
+	}));
+
+	return page_routes;
 };
