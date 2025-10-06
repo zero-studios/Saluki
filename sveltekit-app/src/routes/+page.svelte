@@ -15,7 +15,6 @@
 	}
 
 	let { data }: Props = $props();
-	
 </script>
 
 {#each data.pageData.data.modules as module (module._key)}

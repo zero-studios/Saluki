@@ -1,7 +1,3 @@
-import example from './example'
-
-const pagebuilderTypes = [
-    example
-]
-
+// Deprecated: pagebuilder object modules removed in favor of Section documents
+const pagebuilderTypes: any[] = []
 export default pagebuilderTypes

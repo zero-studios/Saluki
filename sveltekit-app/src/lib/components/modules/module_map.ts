@@ -1,7 +1,9 @@
-import type { Component } from 'svelte';
-import Example from "./Example.svelte";
+import type { ComponentType } from 'svelte';
+import Example from "./example.svelte";
+import Section from "./Section.svelte";
 
 
-export const module_map: Record<string, Component> = {
+export const module_map: Record<string, ComponentType> = {
     example: Example,
+    section: Section,
 };

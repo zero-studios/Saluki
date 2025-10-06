@@ -2,7 +2,7 @@ import {defineField, defineType} from 'sanity'
 import {isUniqueAcrossAllDocuments} from '../lib/functions/isUnique'
 import {seoFields} from "../lib/blocks/seoFields"
 
-import pagebuilder from './pagebuilder'
+// Removed pagebuilder modules in favor of reusable Section documents
 
 export default defineType({
     name: 'page',
@@ -44,9 +44,8 @@ export default defineType({
         title: 'Sections',
         type: 'array',
         group: 'main',
-
         of: [
-          ...pagebuilder.map((module) => ({type: module.name})),
+          {type: 'reference', to: [{type: 'section'}]},
         ],
       }),
     ],

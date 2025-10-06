@@ -52,6 +52,99 @@ export default defineConfig({
   ],
   schema: {
     types: schemaTypes,
+    templates: (prev) => [
+      ...prev,
+      {
+        id: 'section-custom',
+        title: 'Section: Custom',
+        schemaType: 'section',
+        value: {
+          title: 'Custom Section',
+          contentDirection: 'column',
+          gap: 32,
+          sectionWidth: 'page-width',
+          colorScheme: '',
+          backgroundMedia: 'none',
+          paddingBlockStart: 48,
+          paddingBlockEnd: 48,
+          blocks: [
+            {
+              _type: 'textBlock',
+              width: 'fit-content',
+              maxWidth: 'narrow',
+              text: [
+                {
+                  _type: 'block',
+                  style: 'normal',
+                  children: [{_type: 'span', text: 'Add text...'}]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        id: 'section-pull-quote',
+        title: 'Section: Pull Quote',
+        schemaType: 'section',
+        value: {
+          title: 'Pull Quote',
+          contentDirection: 'column',
+          gap: 16,
+          paddingBlockStart: 64,
+          paddingBlockEnd: 64,
+          blocks: [
+            {
+              _type: 'textBlock',
+              typePreset: 'h2',
+              width: '100%',
+              maxWidth: 'narrow',
+              alignment: 'center',
+              text: [
+                {
+                  _type: 'block',
+                  style: 'h2',
+                  children: [{_type: 'span', text: 'At the heart of every product lies a unique story...'}]
+                }
+              ]
+            }
+          ]
+        }
+      },
+      {
+        id: 'section-email-signup',
+        title: 'Section: Email Signup',
+        schemaType: 'section',
+        value: {
+          title: 'Email signup',
+          contentDirection: 'column',
+          gap: 16,
+          colorScheme: 'scheme-2',
+          paddingBlockStart: 40,
+          paddingBlockEnd: 40,
+          blocks: [
+            {
+              _type: 'textBlock',
+              typePreset: 'h2',
+              width: '100%',
+              alignment: 'center',
+              text: [
+                { _type: 'block', style: 'h2', children: [{_type:'span', text:'Subscribe to our emails'}] }
+              ]
+            },
+            {
+              _type: 'textBlock',
+              typePreset: 'paragraph',
+              width: '100%',
+              alignment: 'center',
+              text: [
+                { _type: 'block', style: 'normal', children: [{_type:'span', text:'Be the first to know about new collections and special offers.'}] }
+              ]
+            }
+          ]
+        }
+      }
+    ],
   },
   document: {
     actions: (prev, { schemaType }) => {
