@@ -2,18 +2,18 @@
   import {PortableText} from '@portabletext/svelte'
   import type { TextBlock } from '$lib/sanity/types'
 
-  export let sanity_obj: TextBlock
+  let { sanity_obj }: { sanity_obj: TextBlock } = $props();
   
-  $: value = sanity_obj?.text || []
-  $: settings = sanity_obj
+  const value = $derived(sanity_obj?.text || []);
+  const settings = $derived(sanity_obj);
 
-  $: width = settings?.width ?? 'fit-content'
-  $: maxWidth = settings?.maxWidth ?? 'normal'
-  $: alignment = settings?.alignment ?? 'left'
-  $: typePreset = settings?.typePreset ?? 'rte'
-  $: isRte = typePreset === 'rte' || typePreset === 'paragraph'
+  const width = $derived(settings?.width ?? 'fit-content');
+  const maxWidth = $derived(settings?.maxWidth ?? 'normal');
+  const alignment = $derived(settings?.alignment ?? 'left');
+  const typePreset = $derived(settings?.typePreset ?? 'rte');
+  const isRte = $derived(typePreset === 'rte' || typePreset === 'paragraph');
 
-  $: styleVars = {
+  const styleVars = $derived({
     '--width': width,
     '--max-width': `var(--max-width--${typePreset === 'rte' ? 'body' : 'heading'}-${maxWidth})`,
     ...(width === '100%' ? {'--text-align': alignment} : {}),
@@ -35,7 +35,7 @@
     ...(settings?.typePreset === 'custom' && settings?.color
       ? {'--color': settings?.color}
       : {}),
-  } as Record<string, string>
+  } as Record<string, string>);
 
   function styleFromVars(vars: Record<string, string>) {
     return Object.entries(vars)
@@ -52,36 +52,35 @@
     components={{}}
     value={value}
   />
-  <slot />
-  <style>
-    :global(.text-block){
-      width: var(--width);
-      max-width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: var(--horizontal-alignment);
-    }
-    :global(.text-block > *){
-      width: var(--width);
-      max-width: var(--max-width, 100%);
-      text-align: var(--text-align, var(--text-align-default, left));
-      text-wrap: var(--text-wrap);
-    }
-    :global(.text-block--align-center),
-    :global(.text-block--align-center > *){margin-inline:auto}
-    :global(.text-block--align-right),
-    :global(.text-block--align-right > *){margin-inline-start:auto}
-    :global(.text-block--background){
-      background-color: var(--text-background-color);
-      border-radius: var(--text-corner-radius);
-      padding-block-start: max(var(--text-padding, 0), var(--padding-block-start, 0));
-      padding-block-end: max(var(--text-padding, 0), var(--padding-block-end, 0));
-      padding-inline-start: max(var(--text-padding, 0), var(--padding-inline-start, 0));
-      padding-inline-end: max(var(--text-padding, 0), var(--padding-inline-end, 0));
-    }
-    :global(.custom-color),
-    :global(.custom-color > :is(h1,h2,h3,h4,h5,h6,p,*)) { color: var(--color); }
-  </style>
 </div>
+<style>
+  :global(.text-block){
+    width: var(--width);
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: var(--horizontal-alignment);
+  }
+  :global(.text-block > *){
+    width: var(--width);
+    max-width: var(--max-width, 100%);
+    text-align: var(--text-align, var(--text-align-default, left));
+    text-wrap: var(--text-wrap);
+  }
+  :global(.text-block--align-center),
+  :global(.text-block--align-center > *){margin-inline:auto}
+  :global(.text-block--align-right),
+  :global(.text-block--align-right > *){margin-inline-start:auto}
+  :global(.text-block--background){
+    background-color: var(--text-background-color);
+    border-radius: var(--text-corner-radius);
+    padding-block-start: max(var(--text-padding, 0), var(--padding-block-start, 0));
+    padding-block-end: max(var(--text-padding, 0), var(--padding-block-end, 0));
+    padding-inline-start: max(var(--text-padding, 0), var(--padding-inline-start, 0));
+    padding-inline-end: max(var(--text-padding, 0), var(--padding-inline-end, 0));
+  }
+  :global(.custom-color),
+  :global(.custom-color > :is(h1,h2,h3,h4,h5,h6,p,*)) { color: var(--color); }
+</style>
 
 

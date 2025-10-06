@@ -36,5 +36,10 @@ export const load: LayoutServerLoad = async (event) => {
 		  ]
 		}
 	  }) satisfies MetaTagsProps;
-	return { baseMetaTags, favicon: data.site_favicon ? urlFor(data.site_favicon).url() : "", site_scripts: data.site_scripts};
+	return { 
+		baseMetaTags, 
+		favicon: data.site_favicon ? urlFor(data.site_favicon).url() : "", 
+		site_scripts: data.site_scripts,
+		settings: data
+	};
 };

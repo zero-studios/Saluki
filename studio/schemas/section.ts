@@ -6,6 +6,11 @@ export const textBlock = defineType({
   type: 'object',
   fields: [
     defineField({
+      name: 'title',
+      title: 'Title',
+      type: 'string',
+    }),
+    defineField({
       name: 'text',
       title: 'Text',
       type: 'blockContent',
@@ -253,8 +258,11 @@ export const textBlock = defineType({
     }),
   ],
   preview: {
-    select: {text: 'text'},
-    prepare: () => ({title: 'Text'}),
+    select: { title: 'title'},
+    prepare: ({title}) => ({
+      title: title || 'Text',
+      subtitle: 'Text Block',
+    }),
   },
 })
 
@@ -631,7 +639,11 @@ export const groupBlock = defineType({
     }),
   ],
   preview: {
-    prepare: () => ({title: 'Group'}),
+    select: {title: 'title'},
+    prepare: ({title}) => ({
+      title: title || 'Group Block',
+      subtitle: 'Group Block',
+    }),
   },
 })
 
