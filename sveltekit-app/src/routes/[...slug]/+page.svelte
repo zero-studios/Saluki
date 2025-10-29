@@ -1,4 +1,4 @@
-<script lang="ts">
+<!-- <script lang="ts">
 	import { module_map } from '$lib/components/modules/module_map';
 	import type { Page } from "$lib/sanity/types";
 
@@ -23,4 +23,4 @@
 	<Component sanity_obj={module}></Component>
 {/each}
 
-
+ -->

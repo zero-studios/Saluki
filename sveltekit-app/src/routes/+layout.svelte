@@ -2,133 +2,131 @@
 	import "../app.css";
 	import { page } from '$app/state';
 	import { MetaTags, deepMerge } from 'svelte-meta-tags';
-	import { dataset } from "$lib/sanity/api";
 	import type { Settings } from '$lib/sanity/types';
+	import { PUBLIC_PREVIEW } from '$env/static/public';
+	import { useQuery } from '@sanity/svelte-loader';
+	import { isPreviewing, VisualEditing } from '@sanity/visual-editing/svelte';
+	import LiveMode from '$lib/components/LiveMode.svelte';
+	import { stegaClean } from '@sanity/client/stega'
 
-	interface Props {
-	    children?: import('svelte').Snippet;
-		data: {
-			baseMetaTags: MetaTags;
-			favicon:string;
-			site_scripts:string;
-			settings: Settings;
-		}
-	}
-	let { data, children }:Props = $props();
+	let { data, children } = $props();
+
+	let query = $derived(useQuery(data));
+	let initial = $derived($query);
 
 	let metaTags = $derived(deepMerge(data.baseMetaTags, page.data.pageMetaTags));
 
 	// Create dynamic CSS custom properties for typography
 	const typographyVars = $derived({
 		// H1
-		'--h1-font-size': `${data.settings?.h1_fontSize || 48}px`,
-		'--h1-font-size-mobile': `${data.settings?.h1_fontSizeMobile || 32}px`,
-		'--h1-font-size-vw': `${(data.settings?.h1_fontSize || 48) * 0.1}vw`,
-		'--h1-line-height': data.settings?.h1_lineHeight || 1.2,
-		'--h1-line-height-mobile': data.settings?.h1_lineHeightMobile || 1.1,
-		'--h1-letter-spacing': `${data.settings?.h1_letterSpacing || -0.02}em`,
-		'--h1-letter-spacing-mobile': `${data.settings?.h1_letterSpacingMobile || -0.01}em`,
-		'--h1-text-transform': data.settings?.h1_textTransform || 'none',
+		'--h1-font-size': `${initial.data?.h1_fontSize || 48}px`,
+		'--h1-font-size-mobile': `${initial.data?.h1_fontSizeMobile || 32}px`,
+		'--h1-font-size-vw': `${(initial.data?.h1_fontSize || 48) * 0.1}vw`,
+		'--h1-line-height': initial.data?.h1_lineHeight || 1.2,
+		'--h1-line-height-mobile': initial.data?.h1_lineHeightMobile || 1.1,
+		'--h1-letter-spacing': `${initial.data?.h1_letterSpacing || -0.02}em`,
+		'--h1-letter-spacing-mobile': `${initial.data?.h1_letterSpacingMobile || -0.01}em`,
+		'--h1-text-transform': initial.data?.h1_textTransform || 'none',
 		
 		// H2
-		'--h2-font-size': `${data.settings?.h2_fontSize || 36}px`,
-		'--h2-font-size-mobile': `${data.settings?.h2_fontSizeMobile || 28}px`,
-		'--h2-font-size-vw': `${(data.settings?.h2_fontSize || 36) * 0.1}vw`,
-		'--h2-line-height': data.settings?.h2_lineHeight || 1.3,
-		'--h2-line-height-mobile': data.settings?.h2_lineHeightMobile || 1.2,
-		'--h2-letter-spacing': `${data.settings?.h2_letterSpacing || -0.01}em`,
-		'--h2-letter-spacing-mobile': `${data.settings?.h2_letterSpacingMobile || 0}em`,
-		'--h2-text-transform': data.settings?.h2_textTransform || 'none',
+		'--h2-font-size': `${initial.data?.h2_fontSize || 36}px`,
+		'--h2-font-size-mobile': `${initial.data?.h2_fontSizeMobile || 28}px`,
+		'--h2-font-size-vw': `${(initial.data?.h2_fontSize || 36) * 0.1}vw`,
+		'--h2-line-height': initial.data?.h2_lineHeight || 1.3,
+		'--h2-line-height-mobile': initial.data?.h2_lineHeightMobile || 1.2,
+		'--h2-letter-spacing': `${initial.data?.h2_letterSpacing || -0.01}em`,
+		'--h2-letter-spacing-mobile': `${initial.data?.h2_letterSpacingMobile || 0}em`,
+		'--h2-text-transform': initial.data?.h2_textTransform || 'none',
 		
 		// H3
-		'--h3-font-size': `${data.settings?.h3_fontSize || 28}px`,
-		'--h3-font-size-mobile': `${data.settings?.h3_fontSizeMobile || 24}px`,
-		'--h3-font-size-vw': `${(data.settings?.h3_fontSize || 28) * 0.1}vw`,
-		'--h3-line-height': data.settings?.h3_lineHeight || 1.3,
-		'--h3-line-height-mobile': data.settings?.h3_lineHeightMobile || 1.2,
-		'--h3-letter-spacing': `${data.settings?.h3_letterSpacing || 0}em`,
-		'--h3-letter-spacing-mobile': `${data.settings?.h3_letterSpacingMobile || 0}em`,
-		'--h3-text-transform': data.settings?.h3_textTransform || 'none',
+		'--h3-font-size': `${initial.data?.h3_fontSize || 28}px`,
+		'--h3-font-size-mobile': `${initial.data?.h3_fontSizeMobile || 24}px`,
+		'--h3-font-size-vw': `${(initial.data?.h3_fontSize || 28) * 0.1}vw`,
+		'--h3-line-height': initial.data?.h3_lineHeight || 1.3,
+		'--h3-line-height-mobile': initial.data?.h3_lineHeightMobile || 1.2,
+		'--h3-letter-spacing': `${initial.data?.h3_letterSpacing || 0}em`,
+		'--h3-letter-spacing-mobile': `${initial.data?.h3_letterSpacingMobile || 0}em`,
+		'--h3-text-transform': initial.data?.h3_textTransform || 'none',
 		
 		// H4
-		'--h4-font-size': `${data.settings?.h4_fontSize || 24}px`,
-		'--h4-font-size-mobile': `${data.settings?.h4_fontSizeMobile || 20}px`,
-		'--h4-font-size-vw': `${(data.settings?.h4_fontSize || 24) * 0.1}vw`,
-		'--h4-line-height': data.settings?.h4_lineHeight || 1.4,
-		'--h4-line-height-mobile': data.settings?.h4_lineHeightMobile || 1.3,
-		'--h4-letter-spacing': `${data.settings?.h4_letterSpacing || 0}em`,
-		'--h4-letter-spacing-mobile': `${data.settings?.h4_letterSpacingMobile || 0}em`,
-		'--h4-text-transform': data.settings?.h4_textTransform || 'none',
+		'--h4-font-size': `${initial.data?.h4_fontSize || 24}px`,
+		'--h4-font-size-mobile': `${initial.data?.h4_fontSizeMobile || 20}px`,
+		'--h4-font-size-vw': `${(initial.data?.h4_fontSize || 24) * 0.1}vw`,
+		'--h4-line-height': initial.data?.h4_lineHeight || 1.4,
+		'--h4-line-height-mobile': initial.data?.h4_lineHeightMobile || 1.3,
+		'--h4-letter-spacing': `${initial.data?.h4_letterSpacing || 0}em`,
+		'--h4-letter-spacing-mobile': `${initial.data?.h4_letterSpacingMobile || 0}em`,
+		'--h4-text-transform': initial.data?.h4_textTransform || 'none',
 		
 		// H5
-		'--h5-font-size': `${data.settings?.h5_fontSize || 20}px`,
-		'--h5-font-size-mobile': `${data.settings?.h5_fontSizeMobile || 18}px`,
-		'--h5-font-size-vw': `${(data.settings?.h5_fontSize || 20) * 0.1}vw`,
-		'--h5-line-height': data.settings?.h5_lineHeight || 1.4,
-		'--h5-line-height-mobile': data.settings?.h5_lineHeightMobile || 1.3,
-		'--h5-letter-spacing': `${data.settings?.h5_letterSpacing || 0}em`,
-		'--h5-letter-spacing-mobile': `${data.settings?.h5_letterSpacingMobile || 0}em`,
-		'--h5-text-transform': data.settings?.h5_textTransform || 'none',
+		'--h5-font-size': `${initial.data?.h5_fontSize || 20}px`,
+		'--h5-font-size-mobile': `${initial.data?.h5_fontSizeMobile || 18}px`,
+		'--h5-font-size-vw': `${(initial.data?.h5_fontSize || 20) * 0.1}vw`,
+		'--h5-line-height': initial.data?.h5_lineHeight || 1.4,
+		'--h5-line-height-mobile': initial.data?.h5_lineHeightMobile || 1.3,
+		'--h5-letter-spacing': `${initial.data?.h5_letterSpacing || 0}em`,
+		'--h5-letter-spacing-mobile': `${initial.data?.h5_letterSpacingMobile || 0}em`,
+		'--h5-text-transform': initial.data?.h5_textTransform || 'none',
 		
 		// H6
-		'--h6-font-size': `${data.settings?.h6_fontSize || 18}px`,
-		'--h6-font-size-mobile': `${data.settings?.h6_fontSizeMobile || 16}px`,
-		'--h6-font-size-vw': `${(data.settings?.h6_fontSize || 18) * 0.1}vw`,
-		'--h6-line-height': data.settings?.h6_lineHeight || 1.4,
-		'--h6-line-height-mobile': data.settings?.h6_lineHeightMobile || 1.3,
-		'--h6-letter-spacing': `${data.settings?.h6_letterSpacing || 0}em`,
-		'--h6-letter-spacing-mobile': `${data.settings?.h6_letterSpacingMobile || 0}em`,
-		'--h6-text-transform': data.settings?.h6_textTransform || 'none',
+		'--h6-font-size': `${initial.data?.h6_fontSize || 18}px`,
+		'--h6-font-size-mobile': `${initial.data?.h6_fontSizeMobile || 16}px`,
+		'--h6-font-size-vw': `${(initial.data?.h6_fontSize || 18) * 0.1}vw`,
+		'--h6-line-height': initial.data?.h6_lineHeight || 1.4,
+		'--h6-line-height-mobile': initial.data?.h6_lineHeightMobile || 1.3,
+		'--h6-letter-spacing': `${initial.data?.h6_letterSpacing || 0}em`,
+		'--h6-letter-spacing-mobile': `${initial.data?.h6_letterSpacingMobile || 0}em`,
+		'--h6-text-transform': initial.data?.h6_textTransform || 'none',
 		
 		// Paragraph
-		'--paragraph-font-size': `${data.settings?.paragraph_fontSize || 16}px`,
-		'--paragraph-font-size-mobile': `${data.settings?.paragraph_fontSizeMobile || 14}px`,
-		'--paragraph-font-size-vw': `${(data.settings?.paragraph_fontSize || 16) * 0.1}vw`,
-		'--paragraph-line-height': data.settings?.paragraph_lineHeight || 1.6,
-		'--paragraph-line-height-mobile': data.settings?.paragraph_lineHeightMobile || 1.5,
-		'--paragraph-letter-spacing': `${data.settings?.paragraph_letterSpacing || 0}em`,
-		'--paragraph-letter-spacing-mobile': `${data.settings?.paragraph_letterSpacingMobile || 0}em`,
-		'--paragraph-text-transform': data.settings?.paragraph_textTransform || 'none',
+		'--paragraph-font-size': `${initial.data?.paragraph_fontSize || 16}px`,
+		'--paragraph-font-size-mobile': `${initial.data?.paragraph_fontSizeMobile || 14}px`,
+		'--paragraph-font-size-vw': `${(initial.data?.paragraph_fontSize || 16) * 0.1}vw`,
+		'--paragraph-line-height': initial.data?.paragraph_lineHeight || 1.6,
+		'--paragraph-line-height-mobile': initial.data?.paragraph_lineHeightMobile || 1.5,
+		'--paragraph-letter-spacing': `${initial.data?.paragraph_letterSpacing || 0}em`,
+		'--paragraph-letter-spacing-mobile': `${initial.data?.paragraph_letterSpacingMobile || 0}em`,
+		'--paragraph-text-transform': initial.data?.paragraph_textTransform || 'none',
 		
 		// Paragraph 2
-		'--paragraph-2-font-size': `${data.settings?.paragraph_2_fontSize || 18}px`,
-		'--paragraph-2-font-size-mobile': `${data.settings?.paragraph_2_fontSizeMobile || 16}px`,
-		'--paragraph-2-font-size-vw': `${(data.settings?.paragraph_2_fontSize || 18) * 0.1}vw`,
-		'--paragraph-2-line-height': data.settings?.paragraph_2_lineHeight || 1.6,
-		'--paragraph-2-line-height-mobile': data.settings?.paragraph_2_lineHeightMobile || 1.5,
-		'--paragraph-2-letter-spacing': `${data.settings?.paragraph_2_letterSpacing || 0}em`,
-		'--paragraph-2-letter-spacing-mobile': `${data.settings?.paragraph_2_letterSpacingMobile || 0}em`,
-		'--paragraph-2-text-transform': data.settings?.paragraph_2_textTransform || 'none',
+		'--paragraph-2-font-size': `${initial.data?.paragraph_2_fontSize || 18}px`,
+		'--paragraph-2-font-size-mobile': `${initial.data?.paragraph_2_fontSizeMobile || 16}px`,
+		'--paragraph-2-font-size-vw': `${(initial.data?.paragraph_2_fontSize || 18) * 0.1}vw`,
+		'--paragraph-2-line-height': initial.data?.paragraph_2_lineHeight || 1.6,
+		'--paragraph-2-line-height-mobile': initial.data?.paragraph_2_lineHeightMobile || 1.5,
+		'--paragraph-2-letter-spacing': `${initial.data?.paragraph_2_letterSpacing || 0}em`,
+		'--paragraph-2-letter-spacing-mobile': `${initial.data?.paragraph_2_letterSpacingMobile || 0}em`,
+		'--paragraph-2-text-transform': initial.data?.paragraph_2_textTransform || 'none',
 		
 		// Paragraph 3
-		'--paragraph-3-font-size': `${data.settings?.paragraph_3_fontSize || 20}px`,
-		'--paragraph-3-font-size-mobile': `${data.settings?.paragraph_3_fontSizeMobile || 18}px`,
-		'--paragraph-3-font-size-vw': `${(data.settings?.paragraph_3_fontSize || 20) * 0.1}vw`,
-		'--paragraph-3-line-height': data.settings?.paragraph_3_lineHeight || 1.6,
-		'--paragraph-3-line-height-mobile': data.settings?.paragraph_3_lineHeightMobile || 1.5,
-		'--paragraph-3-letter-spacing': `${data.settings?.paragraph_3_letterSpacing || 0}em`,
-		'--paragraph-3-letter-spacing-mobile': `${data.settings?.paragraph_3_letterSpacingMobile || 0}em`,
-		'--paragraph-3-text-transform': data.settings?.paragraph_3_textTransform || 'none',
+		'--paragraph-3-font-size': `${initial.data?.paragraph_3_fontSize || 20}px`,
+		'--paragraph-3-font-size-mobile': `${initial.data?.paragraph_3_fontSizeMobile || 18}px`,
+		'--paragraph-3-font-size-vw': `${(initial.data?.paragraph_3_fontSize || 20) * 0.1}vw`,
+		'--paragraph-3-line-height': initial.data?.paragraph_3_lineHeight || 1.6,
+		'--paragraph-3-line-height-mobile': initial.data?.paragraph_3_lineHeightMobile || 1.5,
+		'--paragraph-3-letter-spacing': `${initial.data?.paragraph_3_letterSpacing || 0}em`,
+		'--paragraph-3-letter-spacing-mobile': `${initial.data?.paragraph_3_letterSpacingMobile || 0}em`,
+		'--paragraph-3-text-transform': initial.data?.paragraph_3_textTransform || 'none',
 		
 		// Eyebrow
-		'--eyebrow-font-size': `${data.settings?.eyebrow_fontSize || 14}px`,
-		'--eyebrow-font-size-mobile': `${data.settings?.eyebrow_fontSizeMobile || 12}px`,
-		'--eyebrow-font-size-vw': `${(data.settings?.eyebrow_fontSize || 14) * 0.1}vw`,
-		'--eyebrow-line-height': data.settings?.eyebrow_lineHeight || 1.4,
-		'--eyebrow-line-height-mobile': data.settings?.eyebrow_lineHeightMobile || 1.3,
-		'--eyebrow-letter-spacing': `${data.settings?.eyebrow_letterSpacing || 0.1}em`,
-		'--eyebrow-letter-spacing-mobile': `${data.settings?.eyebrow_letterSpacingMobile || 0.05}em`,
-		'--eyebrow-text-transform': data.settings?.eyebrow_textTransform || 'uppercase',
+		'--eyebrow-font-size': `${initial.data?.eyebrow_fontSize || 14}px`,
+		'--eyebrow-font-size-mobile': `${initial.data?.eyebrow_fontSizeMobile || 12}px`,
+		'--eyebrow-font-size-vw': `${(initial.data?.eyebrow_fontSize || 14) * 0.1}vw`,
+		'--eyebrow-line-height': initial.data?.eyebrow_lineHeight || 1.4,
+		'--eyebrow-line-height-mobile': initial.data?.eyebrow_lineHeightMobile || 1.3,
+		'--eyebrow-letter-spacing': `${initial.data?.eyebrow_letterSpacing || 0.1}em`,
+		'--eyebrow-letter-spacing-mobile': `${initial.data?.eyebrow_letterSpacingMobile || 0.05}em`,
+		'--eyebrow-text-transform': initial.data?.eyebrow_textTransform || 'uppercase',
 		
 		// Eyebrow 2
-		'--eyebrow-2-font-size': `${data.settings?.eyebrow_2_fontSize || 16}px`,
-		'--eyebrow-2-font-size-mobile': `${data.settings?.eyebrow_2_fontSizeMobile || 14}px`,
-		'--eyebrow-2-font-size-vw': `${(data.settings?.eyebrow_2_fontSize || 16) * 0.1}vw`,
-		'--eyebrow-2-line-height': data.settings?.eyebrow_2_lineHeight || 1.4,
-		'--eyebrow-2-line-height-mobile': data.settings?.eyebrow_2_lineHeightMobile || 1.3,
-		'--eyebrow-2-letter-spacing': `${data.settings?.eyebrow_2_letterSpacing || 0.05}em`,
-		'--eyebrow-2-letter-spacing-mobile': `${data.settings?.eyebrow_2_letterSpacingMobile || 0.02}em`,
-		'--eyebrow-2-text-transform': data.settings?.eyebrow_2_textTransform || 'uppercase',
+		'--eyebrow-2-font-size': `${initial.data?.eyebrow_2_fontSize || 16}px`,
+		'--eyebrow-2-font-size-mobile': `${initial.data?.eyebrow_2_fontSizeMobile || 14}px`,
+		'--eyebrow-2-font-size-vw': `${(initial.data?.eyebrow_2_fontSize || 16) * 0.1}vw`,
+		'--eyebrow-2-line-height': initial.data?.eyebrow_2_lineHeight || 1.4,
+		'--eyebrow-2-line-height-mobile': initial.data?.eyebrow_2_lineHeightMobile || 1.3,
+		'--eyebrow-2-letter-spacing': `${initial.data?.eyebrow_2_letterSpacing || 0.05}em`,
+		'--eyebrow-2-letter-spacing-mobile': `${initial.data?.eyebrow_2_letterSpacingMobile || 0.02}em`,
+		'--eyebrow-2-text-transform': initial.data?.eyebrow_2_textTransform || 'uppercase',
 	} as Record<string, string | number>);
 
 	function styleFromVars(vars: Record<string, string | number>) {
@@ -141,7 +139,7 @@
 
 <svelte:head>
 	<link rel="icon" href={data.favicon} />
-	{@html data.site_scripts}
+	{@html stegaClean(data.site_scripts)}
 </svelte:head>
 
 <div class="container" style={styleFromVars(typographyVars)}>
@@ -171,7 +169,13 @@
 	</footer>
 </div>
 
-<MetaTags {...metaTags} />
+
+{#if $isPreviewing && PUBLIC_PREVIEW === 'TRUE'}
+<p>Previewing</p>
+	<VisualEditing />
+	<LiveMode />
+{/if}
+
 <style>
 	.container {
 		margin: 0 auto;

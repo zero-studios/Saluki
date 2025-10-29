@@ -1,11 +1,12 @@
 <script lang="ts">
   import {PortableText} from '@portabletext/svelte'
   import type { TextBlock } from '$lib/sanity/types'
+	import { stegaClean } from '@sanity/client/stega';
 
   let { sanity_obj }: { sanity_obj: TextBlock } = $props();
   
   const value = $derived(sanity_obj?.text || []);
-  const settings = $derived(sanity_obj);
+  const settings = $derived(stegaClean(sanity_obj));
 
   const width = $derived(settings?.width ?? 'fit-content');
   const maxWidth = $derived(settings?.maxWidth ?? 'normal');

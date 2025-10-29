@@ -1,8 +1,8 @@
 import blockContent from './blockContent'
 import post from './post'
 import page from './page'
-import section, {groupBlock, textBlock} from './section'
-import pagebuilder from './pagebuilder'
+import section from './section'
+import themeBlocks from './themeBlocks'
 import settings from './settings'
 
 export const schemaTypes = [
@@ -12,6 +12,6 @@ export const schemaTypes = [
 
     page,
     section,
-    groupBlock,
-    textBlock,
+
+    ...themeBlocks,
 ]

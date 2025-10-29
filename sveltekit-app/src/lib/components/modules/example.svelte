@@ -2,7 +2,7 @@
     import type { ExampleModule } from '$lib/sanity/types';
     import {PortableText} from '@portabletext/svelte'
     import { urlFor } from '$lib/sanity/image';
-	import Video from '../molecules/Video.svelte';
+	import Video from '../atoms/Video.svelte';
     import { fileAssetFor } from "$lib/sanity/video";
 
 

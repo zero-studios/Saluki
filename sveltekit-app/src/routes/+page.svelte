@@ -1,25 +1,18 @@
 <script lang="ts">
 	import { module_map } from '$lib/components/modules/module_map';
-	import type { Page } from "$lib/sanity/types";
+	import { useQuery } from '@sanity/svelte-loader';
+	import { cleanObject } from '$lib/sanity/clean';
 
-	interface Props {
-		data: {
-			pageData: {
-				data: Page
-			};
-			params: {
-				slug: string;
-			};
-			prerender: boolean;
-		};
-	}
+	let { data } = $props();
+	let query = $derived(useQuery(data));
+	let initial = $derived($query);
 
-	let { data }: Props = $props();
+	$effect(() => {
+		console.log(initial.data)
+	})
 </script>
 
-{#each data.pageData.data.modules as module (module._key)}
+{#each initial.data.modules as module (module._key)}
 	{@const Component = module_map[module._type]}
 	<Component sanity_obj={module}></Component>
 {/each}
-
-

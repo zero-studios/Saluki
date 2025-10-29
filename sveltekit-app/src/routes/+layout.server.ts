@@ -1,45 +1,51 @@
 import type { MetaTagsProps } from 'svelte-meta-tags';
+import type { LayoutServerLoad } from './$types';
 import { settingsQuery } from '$lib/sanity/queries';
 import type { Settings } from '$lib/sanity/types';
 import { urlFor } from '$lib/sanity/image';
+import { PUBLIC_PREVIEW } from '$env/static/public';
 
+const is_ssg = PUBLIC_PREVIEW === 'FALSE';
+export const prerender = is_ssg;
 
 export const load: LayoutServerLoad = async (event) => {
-
 	const { loadQuery } = event.locals;
-	const { slug } = event.params;
+	const { preview } = event.locals;
 
-	const params = { slug };
+	const initialData = await loadQuery<Settings>(settingsQuery);
 
-	const { data } = await loadQuery<Settings>(settingsQuery, params);
-	
 	const baseMetaTags = Object.freeze({
-		title: data.meta_title || 'Saluki',
-		titleTemplate: `%s | ${data.meta_title}`,
-		description: data.meta_description,
+		title: initialData?.data.meta_title || 'Saluki',
+		titleTemplate: `%s | ${initialData?.data.meta_title}`,
+		description: initialData?.data.meta_description,
 		canonical: new URL(event.url.pathname, event.url.origin).href,
 		openGraph: {
-		  type: 'website',
-		  url: new URL(event.url.pathname, event.url.origin).href,
-		  locale: 'en_IE',
-		  title: data.meta_title,
-		  description: data.meta_description,
-		  siteName: data.meta_title,
-		  images: [
-			{
-			  url: data.og_image ? urlFor(data.og_image).url() : "",
-			  alt: 'Og Image Alt',
-			  width: 800,
-			  height: 600,
-			  type: 'image/jpeg'
-			}
-		  ]
+			type: 'website',
+			url: new URL(event.url.pathname, event.url.origin).href,
+			locale: 'en_IE',
+			title: initialData?.data.meta_title,
+			description: initialData?.data.meta_description,
+			siteName: initialData?.data.meta_title,
+			images: [
+				{
+					url: initialData?.data.og_image ? urlFor(initialData?.data.og_image).url() : '',
+					alt: 'Og Image Alt',
+					width: 800,
+					height: 600,
+					type: 'image/jpeg'
+				}
+			]
 		}
-	  }) satisfies MetaTagsProps;
-	return { 
-		baseMetaTags, 
-		favicon: data.site_favicon ? urlFor(data.site_favicon).url() : "", 
-		site_scripts: data.site_scripts,
-		settings: data
+	}) satisfies MetaTagsProps;
+	return {
+		preview,
+
+		query:settingsQuery,
+		options: {
+			initial: initialData,
+		},
+		baseMetaTags,
+		favicon: initialData?.data.site_favicon ? urlFor(initialData?.data.site_favicon).url() : '',
+		site_scripts: initialData?.data.site_scripts
 	};
 };

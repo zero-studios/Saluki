@@ -5,6 +5,9 @@ import {colorInput} from '@sanity/color-input'
 import { CogIcon } from "@sanity/icons";
 import { vercelDeployTool } from 'sanity-plugin-vercel-deploy'
 
+import {presentationTool} from 'sanity/presentation'
+import {locations, mainDocuments} from './lib/functions/resolve'
+
 import {orderableDocumentListDeskItem} from '@sanity/orderable-document-list'
 
 import {schemaTypes} from './schemas'
@@ -46,7 +49,24 @@ export default defineConfig({
             
           ]),
     }),
-    visionTool(),
+    // visionTool(),
+    presentationTool({
+      name: 'VisualEditor',
+      previewUrl: {
+        origin: 'http://localhost:5173/',
+        // origin: process.env.SANITY_STUDIO_PREVIEW_URL || 'http://localhost:5173/',
+        preview: '/',
+        previewMode: {
+          enable: process.env.SANITY_STUDIO_VERCEL_BYPASS_TOKEN
+            ? `/preview/enable?x-vercel-protection-bypass=${process.env.SANITY_STUDIO_VERCEL_BYPASS_TOKEN}`
+            : `/preview/enable`,
+          disable: process.env.SANITY_STUDIO_VERCEL_BYPASS_TOKEN
+            ? `/preview/disable?x-vercel-protection-bypass=${process.env.SANITY_STUDIO_VERCEL_BYPASS_TOKEN}`
+            : `/preview/disable`,
+        },
+      },
+      resolve: {locations, mainDocuments},
+    }),
     vercelDeployTool(),
 
   ],

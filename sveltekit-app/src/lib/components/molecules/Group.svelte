@@ -1,10 +1,11 @@
 <script lang="ts">
   import type { GroupBlock } from '$lib/sanity/types'
   import { molecules_map } from '$lib/components/molecules/molecule_map'
+	import { stegaClean } from '@sanity/client/stega';
   
   let { sanity_obj }: { sanity_obj: GroupBlock } = $props();
 
-  const settings = $derived(sanity_obj);
+  const settings = $derived(stegaClean(sanity_obj));
   const flexDir = $derived(settings?.contentDirection ?? 'column');
   const mobileColumn = $derived(settings?.verticalOnMobile ? 'mobile-column' : '');
   const layoutStyle = $derived(`--gap: ${settings?.gap ?? 12}px; --horizontal-alignment: ${
@@ -33,7 +34,7 @@
   </div>
 
   <div class="group-block-content layout-panel-flex layout-panel-flex--{flexDir} {mobileColumn}" style={layoutStyle}>
-    {#each settings?.blocks || [] as block (block._key)}
+    {#each sanity_obj.blocks || [] as block (block._key)}
       {@const Component = molecules_map[block._type]}
       {#if Component}
         <Component sanity_obj={block} />

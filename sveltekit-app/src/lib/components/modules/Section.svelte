@@ -1,15 +1,58 @@
 <script lang="ts">
-   import type { SectionModule, GroupBlock, TextBlock } from "$lib/sanity/types";
-   import { molecules_map } from "../molecules/molecule_map";
+  import { stegaClean } from "@sanity/client/stega";
+  import type { SectionModule, GroupBlock, TextBlock } from "$lib/sanity/types";
+  import { molecules_map } from "../molecules/molecule_map";
 
    let { sanity_obj }: { sanity_obj: SectionModule } = $props();
 
-   const dir = $derived(sanity_obj?.contentDirection ?? 'column');
-   const layoutStyle = $derived(`--gap: ${sanity_obj?.gap ?? 12}px; --horizontal-alignment: ${
-     sanity_obj?.horizontalAlignment ?? sanity_obj?.horizontalAlignmentColumn ?? 'flex-start'
-   }; --vertical-alignment: ${sanity_obj?.verticalAlignment ?? sanity_obj?.verticalAlignmentColumn ?? 'center'};`);
-   const paddingStyle = $derived(`--padding-block-start: ${sanity_obj?.paddingBlockStart ?? 0}px; --padding-block-end: ${sanity_obj?.paddingBlockEnd ?? 0}px; --gap-mobile: ${sanity_obj?.shareLayoutSettings ? (sanity_obj?.gap ?? 12) : (sanity_obj?.gapMobile ?? sanity_obj?.gap ?? 12)}px; --horizontal-alignment-mobile: ${sanity_obj?.shareLayoutSettings ? (sanity_obj?.horizontalAlignment ?? sanity_obj?.horizontalAlignmentColumn ?? 'flex-start') : (sanity_obj?.horizontalAlignmentMobile ?? sanity_obj?.horizontalAlignmentColumnMobile ?? 'flex-start')}; --vertical-alignment-mobile: ${sanity_obj?.shareLayoutSettings ? (sanity_obj?.verticalAlignment ?? sanity_obj?.verticalAlignmentColumn ?? 'center') : (sanity_obj?.verticalAlignmentMobile ?? sanity_obj?.verticalAlignmentColumnMobile ?? 'center')}; --padding-block-start-mobile: ${sanity_obj?.sharePaddingSettings ? (sanity_obj?.paddingBlockStart ?? 0) : (sanity_obj?.paddingBlockStartMobile ?? sanity_obj?.paddingBlockStart ?? 0)}px; --padding-block-end-mobile: ${sanity_obj?.sharePaddingSettings ? (sanity_obj?.paddingBlockEnd ?? 0) : (sanity_obj?.paddingBlockEndMobile ?? sanity_obj?.paddingBlockEnd ?? 0)}px; --border-radius-mobile: ${sanity_obj?.borderRadiusMobile ?? sanity_obj?.borderRadius ?? 0}px; --background-media-mobile: ${sanity_obj?.backgroundMediaMobile ?? sanity_obj?.backgroundMedia ?? 'none'};`);
-   const widthClass = $derived(sanity_obj?.sectionWidth === 'full-width' ? 'full-width' : 'page-width');
+   // Get values from Sanity and ensure stega encoding is cleaned up in any fields that are used for styling:
+
+   const dir = $derived(stegaClean(sanity_obj && sanity_obj.contentDirection) ?? 'column');
+   const layoutStyle = $derived(
+     `--gap: ${stegaClean(sanity_obj && sanity_obj.gap) ?? 12}px; --horizontal-alignment: ${
+       stegaClean(sanity_obj && sanity_obj.horizontalAlignment) ?? stegaClean(sanity_obj && sanity_obj.horizontalAlignmentColumn) ?? 'flex-start'
+     }; --vertical-alignment: ${
+       stegaClean(sanity_obj && sanity_obj.verticalAlignment) ?? stegaClean(sanity_obj && sanity_obj.verticalAlignmentColumn) ?? 'center'
+     };`
+   );
+   const paddingStyle = $derived(
+     `--padding-block-start: ${stegaClean(sanity_obj && sanity_obj.paddingBlockStart) ?? 0}px; --padding-block-end: ${stegaClean(sanity_obj && sanity_obj.paddingBlockEnd) ?? 0}px;` +
+     ` --gap-mobile: ${
+       (stegaClean(sanity_obj && sanity_obj.shareLayoutSettings))
+         ? (stegaClean(sanity_obj && sanity_obj.gap) ?? 12)
+         : (stegaClean(sanity_obj && sanity_obj.gapMobile) ?? stegaClean(sanity_obj && sanity_obj.gap) ?? 12)
+     }px;` +
+     ` --horizontal-alignment-mobile: ${
+       (stegaClean(sanity_obj && sanity_obj.shareLayoutSettings))
+         ? (stegaClean(sanity_obj && sanity_obj.horizontalAlignment) ?? stegaClean(sanity_obj && sanity_obj.horizontalAlignmentColumn) ?? 'flex-start')
+         : (stegaClean(sanity_obj && sanity_obj.horizontalAlignmentMobile) ?? stegaClean(sanity_obj && sanity_obj.horizontalAlignmentColumnMobile) ?? 'flex-start')
+     };` +
+     ` --vertical-alignment-mobile: ${
+       (stegaClean(sanity_obj && sanity_obj.shareLayoutSettings))
+         ? (stegaClean(sanity_obj && sanity_obj.verticalAlignment) ?? stegaClean(sanity_obj && sanity_obj.verticalAlignmentColumn) ?? 'center')
+         : (stegaClean(sanity_obj && sanity_obj.verticalAlignmentMobile) ?? stegaClean(sanity_obj && sanity_obj.verticalAlignmentColumnMobile) ?? 'center')
+     };` +
+     ` --padding-block-start-mobile: ${
+       (stegaClean(sanity_obj && sanity_obj.sharePaddingSettings))
+         ? (stegaClean(sanity_obj && sanity_obj.paddingBlockStart) ?? 0)
+         : (stegaClean(sanity_obj && sanity_obj.paddingBlockStartMobile) ?? stegaClean(sanity_obj && sanity_obj.paddingBlockStart) ?? 0)
+     }px;` +
+     ` --padding-block-end-mobile: ${
+       (stegaClean(sanity_obj && sanity_obj.sharePaddingSettings))
+         ? (stegaClean(sanity_obj && sanity_obj.paddingBlockEnd) ?? 0)
+         : (stegaClean(sanity_obj && sanity_obj.paddingBlockEndMobile) ?? stegaClean(sanity_obj && sanity_obj.paddingBlockEnd) ?? 0)
+     }px;` +
+     ` --border-radius-mobile: ${
+       stegaClean(sanity_obj && sanity_obj.borderRadiusMobile) ?? stegaClean(sanity_obj && sanity_obj.borderRadius) ?? 0
+     }px;` +
+     ` --background-media-mobile: ${
+       stegaClean(sanity_obj && sanity_obj.backgroundMediaMobile) ?? stegaClean(sanity_obj && sanity_obj.backgroundMedia) ?? 'none'
+     };`
+   );
+   const widthClass = $derived(
+     stegaClean(sanity_obj && sanity_obj.sectionWidth) === 'full-width' ? 'full-width' : 'page-width'
+   );
+
 </script>
 
 <section class="section-wrapper {widthClass}" style={`${layoutStyle} ${paddingStyle}`}>
