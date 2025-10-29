@@ -1,4 +1,6 @@
 import {defineField, defineType} from 'sanity'
+import { SliderInput } from '../../lib/components/SliderInput'
+import { ButtonGroupInput } from '../../lib/components/ButtonGroupInput'
 
 export default [
     defineField({
@@ -18,7 +20,10 @@ export default [
           {title: 'Mobile only', value: 'hidden--desktop'},
           {title: 'Desktop only', value: 'hidden--mobile'},
         ]},
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: ButtonGroupInput
+        }
     }),
       defineField({
         name: 'width',
@@ -32,7 +37,10 @@ export default [
             {title: 'Fill (100%)', value: '100%'},
           ],
         },
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'width_desktop',
@@ -47,7 +55,10 @@ export default [
           ],
         },
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'maxWidth',
@@ -61,7 +72,10 @@ export default [
             {title: 'None', value: 'none'},
           ],
         },
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'maxWidth_desktop',
@@ -76,7 +90,10 @@ export default [
           ],
         },
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'alignment',
@@ -85,7 +102,10 @@ export default [
         initialValue: 'left',
         options: {list: ['left', 'center', 'right']},
         hidden: ({parent}) => parent?.width !== '100%',
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'alignment_desktop',
@@ -94,15 +114,21 @@ export default [
         initialValue: 'left',
         options: {list: ['left', 'center', 'right']},
         hidden: ({parent}) => parent?.shareLayoutSettings === true || parent?.width_desktop !== '100%',
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
     defineField({
         name: 'cornerRadius',
         title: 'Corner radius',
         type: 'number',
         initialValue: 0,
-        options: {layout: 'slider', min: 0, max: 50, step: 1},
-        group: 'layout'
+        options: {min: 0, max: 50, step: 1},
+        group: 'layout',
+        components: {
+          input: SliderInput
+        }
       }),
       defineField({
         name: 'cornerRadius_desktop',
@@ -110,75 +136,102 @@ export default [
         type: 'number',
         initialValue: 0,
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        options: {layout: 'slider', min: 0, max: 50, step: 1},
-        group: 'layout'
+        options: {min: 0, max: 50, step: 1},
+        group: 'layout',
+        components: {
+          input: SliderInput
+        }
       }),
       defineField({
         name: 'paddingBlockStart',
         title: 'Padding top',
         type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        options: {min: 0, max: 100, step: 1},
         initialValue: 0,
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: SliderInput
+        }
       }),
       defineField({
         name: 'paddingBlockStart_desktop',
         title: 'Padding top (Desktop)',
         type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        options: {min: 0, max: 100, step: 1},
         initialValue: 0,
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: SliderInput
+        }
       }),
       defineField({
         name: 'paddingBlockEnd',
         title: 'Padding bottom',
         type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        options: {min: 0, max: 100, step: 1},
         initialValue: 0,
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: SliderInput
+        }
       }),
       defineField({
         name: 'paddingBlockEnd_desktop',
         title: 'Padding bottom (Desktop)',
         type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        options: {min: 0, max: 100, step: 1},
         initialValue: 0,
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: SliderInput
+        }
       }),
       defineField({
         name: 'paddingInlineStart',
         title: 'Padding left',
         type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        options: {min: 0, max: 100, step: 1},
         initialValue: 0,
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: SliderInput
+        }
       }),
       defineField({
         name: 'paddingInlineStart_desktop',
         title: 'Padding left (Desktop)',
         type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        options: {min: 0, max: 100, step: 1},
         initialValue: 0,
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: SliderInput
+        }
       }),
       defineField({
         name: 'paddingInlineEnd',
         title: 'Padding right',
         type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        options: {min: 0, max: 100, step: 1},
         initialValue: 0,
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: SliderInput
+        }
       }),
       defineField({
         name: 'paddingInlineEnd_desktop',
         title: 'Padding right (Desktop)',
         type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        options: {min: 0, max: 100, step: 1},
         initialValue: 0,
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout'
+        group: 'layout',
+        components: {
+          input: SliderInput
+        }
       }),
 ]
