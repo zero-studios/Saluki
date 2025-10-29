@@ -8,11 +8,11 @@
 	let initial = $derived($query);
 
 	$effect(() => {
-		console.log(initial.data)
+		console.log(initial.data.modules)
 	})
 </script>
 
-{#each initial.data.modules as module (module._key)}
+{#each initial.data.modules as module (module._id)}
 	{@const Component = module_map[module._type]}
 	<Component sanity_obj={module}></Component>
 {/each}

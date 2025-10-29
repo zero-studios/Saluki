@@ -1,0 +1,410 @@
+{
+  "_createdAt": "2025-10-29T19:33:59Z",
+  "_id": "cd6b1302-4ebd-4fc3-9318-f05395aef901",
+  "_rev": "sSKSdA4nxpLQHDzT5EMGma",
+  "_system": {
+    "base": {
+      "id": "cd6b1302-4ebd-4fc3-9318-f05395aef901",
+      "rev": "YTnkVHwF67og8xMFtkAOxY"
+    }
+  },
+  "_type": "section",
+  "_updatedAt": "2025-10-29T20:43:30Z",
+  "alignBaseline": false,
+  "backgroundImagePosition": "cover",
+  "backgroundMedia": "none",
+  "backgroundMediaMobile": "none",
+  "blocks": [
+    {
+      "_key": "8758b4529a21",
+      "_type": "textBlock",
+      "alignment": "left",
+      "alignment_desktop": "left",
+      "background": false,
+      "color": "var(--color-foreground)",
+      "cornerRadius": 0,
+      "cornerRadius_desktop": 0,
+      "fontSize": "1rem",
+      "fontSizeMobile": "1rem",
+      "letterSpacing": "normal",
+      "lineHeight": "normal",
+      "maxWidth": "normal",
+      "maxWidth_desktop": "normal",
+      "paddingBlockEnd": 0,
+      "paddingBlockEnd_desktop": 0,
+      "paddingBlockStart": 0,
+      "paddingBlockStart_desktop": 0,
+      "paddingInlineEnd": 40,
+      "paddingInlineEnd_desktop": 0,
+      "paddingInlineStart": 0,
+      "paddingInlineStart_desktop": 0,
+      "shareLayoutSettings": true,
+      "text": [
+        {
+          "_key": "92f257082672",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "38db4f8a0416",
+              "_type": "span",
+              "marks": [
+                "em",
+                "strong",
+                "6092f37777f5"
+              ],
+              "text": "Le droit d'aînesse"
+            },
+            {
+              "_key": "5993cbe86b83",
+              "_type": "span",
+              "marks": [],
+              "text": " is an "
+            },
+            {
+              "_key": "00223e5103ec",
+              "_type": "span",
+              "marks": [
+                "em",
+                "cce9f192a465"
+              ],
+              "text": "opéra bouffe"
+            },
+            {
+              "_key": "375e50d32e81",
+              "_type": "span",
+              "marks": [],
+              "text": " composed by "
+            },
+            {
+              "_key": "1feea7162434",
+              "_type": "span",
+              "marks": [
+                "1c5db6924d9f"
+              ],
+              "text": "Francis Chassaigne"
+            },
+            {
+              "_key": "d8355127bd8a",
+              "_type": "span",
+              "marks": [],
+              "text": ". The original French "
+            },
+            {
+              "_key": "f733e96539fa",
+              "_type": "span",
+              "marks": [
+                "0e970f8be918"
+              ],
+              "text": "libretto"
+            },
+            {
+              "_key": "426252ad92a3",
+              "_type": "span",
+              "marks": [],
+              "text": " was written by "
+            },
+            {
+              "_key": "cc925690adf0",
+              "_type": "span",
+              "marks": [
+                "249cc8115605"
+              ],
+              "text": "Eugène Leterrier"
+            },
+            {
+              "_key": "598820d4701c",
+              "_type": "span",
+              "marks": [],
+              "text": " and "
+            },
+            {
+              "_key": "68d6dffb5b79",
+              "_type": "span",
+              "marks": [
+                "1914f753ebfd"
+              ],
+              "text": "Albert Vanloo"
+            },
+            {
+              "_key": "d853090d21e6",
+              "_type": "span",
+              "marks": [],
+              "text": ", with an English-language version titled "
+            },
+            {
+              "_key": "5a1919fda592",
+              "_type": "span",
+              "marks": [
+                "em"
+              ],
+              "text": "Falka"
+            },
+            {
+              "_key": "d791b621655b",
+              "_type": "span",
+              "marks": [],
+              "text": " translated and adapted by "
+            },
+            {
+              "_key": "6db8072215b1",
+              "_type": "span",
+              "marks": [
+                "939c2a752ddd"
+              ],
+              "text": "Henry Brougham Farnie"
+            },
+            {
+              "_key": "a9b2b48d13f8",
+              "_type": "span",
+              "marks": [],
+              "text": ". The story concerns an arranged marriage intended to make a governor's heir, his nephew, an aristocrat. Through a series of mishaps that place the governor's nephew and his niece each in danger, the niece, Falka, becomes the noble heir. "
+            },
+            {
+              "_key": "493fabc94682",
+              "_type": "span",
+              "marks": [
+                "em"
+              ],
+              "text": "Falka"
+            },
+            {
+              "_key": "7c429a79e5ab",
+              "_type": "span",
+              "marks": [],
+              "text": " was first produced at the "
+            },
+            {
+              "_key": "4f3a380589a2",
+              "_type": "span",
+              "marks": [
+                "c54bb73a04a6"
+              ],
+              "text": "Comedy Theatre"
+            },
+            {
+              "_key": "bddbdcfe2d38",
+              "_type": "span",
+              "marks": [],
+              "text": " in London on 29 October 1883, the same year as the French premiere, with "
+            },
+            {
+              "_key": "4effeb7d8f74",
+              "_type": "span",
+              "marks": [
+                "caffe6eee943"
+              ],
+              "text": "Violet Cameron"
+            },
+            {
+              "_key": "4beb11414406",
+              "_type": "span",
+              "marks": [],
+              "text": " in the title role of Falka, running for 157 performances. It was revived at the "
+            },
+            {
+              "_key": "69f7ac4b38a4",
+              "_type": "span",
+              "marks": [
+                "250aca325af3"
+              ],
+              "text": "Avenue Theatre"
+            },
+            {
+              "_key": "913703baab6b",
+              "_type": "span",
+              "marks": [],
+              "text": " in 1885, still starring Cameron, and also enjoyed successful productions in Australia, New Zealand and the United States, including productions in 1884 and 1900 on "
+            },
+            {
+              "_key": "06ab20a5a3f3",
+              "_type": "span",
+              "marks": [
+                "7b3b8de620aa"
+              ],
+              "text": "Broadway"
+            },
+            {
+              "_key": "6c6a2ce6cda8",
+              "_type": "span",
+              "marks": [],
+              "text": ". This poster for "
+            },
+            {
+              "_key": "95ff96843ec8",
+              "_type": "span",
+              "marks": [
+                "em"
+              ],
+              "text": "Falka"
+            },
+            {
+              "_key": "82ee49178605",
+              "_type": "span",
+              "marks": [],
+              "text": " was produced for a production at the "
+            },
+            {
+              "_key": "8133d0ee552e",
+              "_type": "span",
+              "marks": [
+                "777695428ea7"
+              ],
+              "text": "Royal Lyceum Theatre"
+            },
+            {
+              "_key": "5ab0215b04d7",
+              "_type": "span",
+              "marks": [],
+              "text": ", Edinburgh, in 1885."
+            }
+          ],
+          "markDefs": [
+            {
+              "_key": "6092f37777f5",
+              "_type": "link",
+              "href": "https://en.wikipedia.org/wiki/Le_droit_d%27a%C3%AEnesse"
+            },
+            {
+              "_key": "cce9f192a465",
+              "_type": "link",
+              "href": "https://en.wikipedia.org/wiki/Op%C3%A9ra_bouffe"
+            },
+            {
+              "_key": "1c5db6924d9f",
+              "_type": "link",
+              "href": "https://en.wikipedia.org/wiki/Francis_Chassaigne"
+            },
+            {
+              "_key": "0e970f8be918",
+              "_type": "link",
+              "href": "https://en.wikipedia.org/wiki/Libretto"
+            },
+            {
+              "_key": "249cc8115605",
+              "_type": "link",
+              "href": "https://en.wikipedia.org/wiki/Eug%C3%A8ne_Leterrier"
+            },
+            {
+              "_key": "1914f753ebfd",
+              "_type": "link",
+              "href": "https://en.wikipedia.org/wiki/Albert_Vanloo"
+            },
+            {
+              "_key": "939c2a752ddd",
+              "_type": "link",
+              "href": "https://en.wikipedia.org/wiki/Henry_Brougham_Farnie"
+            },
+            {
+              "_key": "c54bb73a04a6",
+              "_type": "link",
+              "href": "https://en.wikipedia.org/wiki/Harold_Pinter_Theatre"
+            },
+            {
+              "_key": "caffe6eee943",
+              "_type": "link",
+              "href": "https://en.wikipedia.org/wiki/Violet_Cameron"
+            },
+            {
+              "_key": "250aca325af3",
+              "_type": "link",
+              "href": "https://en.wikipedia.org/wiki/Playhouse_Theatre"
+            },
+            {
+              "_key": "7b3b8de620aa",
+              "_type": "link",
+              "href": "https://en.wikipedia.org/wiki/Broadway_theatre"
+            },
+            {
+              "_key": "777695428ea7",
+              "_type": "link",
+              "href": "https://en.wikipedia.org/wiki/Royal_Lyceum_Theatre"
+            }
+          ],
+          "style": "normal"
+        },
+        {
+          "_key": "100bee4b3fce",
+          "_type": "block",
+          "children": [
+            {
+              "_key": "36283a6f7430",
+              "_type": "span",
+              "marks": [],
+              "text": "\n"
+            }
+          ],
+          "markDefs": [],
+          "style": "normal"
+        }
+      ],
+      "textTransform": "none",
+      "typePreset": "rte",
+      "visibility": "visible-all",
+      "width": "fit-content",
+      "width_desktop": "fit-content"
+    },
+    {
+      "_key": "f09501fc06c5",
+      "_type": "imageBlock",
+      "alignment": "left",
+      "alignment_desktop": "left",
+      "alt": "Map?",
+      "aspectRatio": "auto",
+      "aspectRatio_desktop": "auto",
+      "cornerRadius": 15,
+      "cornerRadius_desktop": 0,
+      "image": {
+        "_type": "image",
+        "asset": {
+          "_ref": "image-834d0ec3a7d78edd041c28e6ac5eca3e31f2a631-2900x2180-jpg",
+          "_type": "reference"
+        }
+      },
+      "maxWidth": "normal",
+      "maxWidth_desktop": "normal",
+      "objectFit": "cover",
+      "objectFit_desktop": "cover",
+      "paddingBlockEnd": 0,
+      "paddingBlockEnd_desktop": 0,
+      "paddingBlockStart": 0,
+      "paddingBlockStart_desktop": 0,
+      "paddingInlineEnd": 0,
+      "paddingInlineEnd_desktop": 0,
+      "paddingInlineStart": 0,
+      "paddingInlineStart_desktop": 0,
+      "shareContentSettings": true,
+      "shareLayoutSettings": true,
+      "visibility": "visible-all",
+      "width": "fit-content",
+      "width_desktop": "fit-content"
+    }
+  ],
+  "border": "none",
+  "borderOpacity": 100,
+  "borderRadius": 0,
+  "borderRadiusMobile": 0,
+  "borderWidth": 1,
+  "colorScheme": "",
+  "contentDirection": "row",
+  "gap": 12,
+  "gradientDirection": "to top",
+  "horizontalAlignment": "flex-start",
+  "horizontalAlignmentColumn": "flex-start",
+  "overlayStyle": "solid",
+  "paddingBlockEnd": 40,
+  "paddingBlockEndMobile": 0,
+  "paddingBlockStart": 40,
+  "paddingBlockStartMobile": 0,
+  "sectionHeight": "auto",
+  "sectionHeightCustom": 50,
+  "sectionWidth": "full-width",
+  "shareAppearanceSettings": true,
+  "shareLayoutSettings": true,
+  "sharePaddingSettings": true,
+  "title": "Example Two Column",
+  "toggleOverlay": false,
+  "verticalAlignment": "center",
+  "verticalAlignmentColumn": "center",
+  "verticalOnMobile": true,
+  "videoPosition": "cover"
+}

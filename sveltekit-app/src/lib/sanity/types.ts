@@ -207,7 +207,14 @@ export interface ImageBlock {
     _type: 'imageBlock'
     _key: string
     image?: ImageAsset
+    alt?: string
     backgroundColor?: Color
+    // Content settings
+    shareContentSettings?: boolean
+    aspectRatio?: string
+    aspectRatio_desktop?: string
+    objectFit?: 'cover' | 'contain' | 'fill' | 'none'
+    objectFit_desktop?: 'cover' | 'contain' | 'fill' | 'none'
     // Shared layout settings
     shareLayoutSettings?: boolean
     visibility?: 'visible-all' | 'hidden--desktop' | 'hidden--mobile'
@@ -238,57 +245,66 @@ export interface ImageBlock {
 export interface GroupBlock {
     _type: 'groupBlock'
     _key: string
-    link?: string
-    openInNewTab?: boolean
-    shareLayoutSettings?: boolean
-    contentDirection?: ContentDirection
-    verticalOnMobile?: boolean
-    horizontalAlignment?: FlexAlignment
-    horizontalAlignmentMobile?: FlexAlignment
-    verticalAlignment?: 'flex-start' | 'center' | 'flex-end'
-    verticalAlignmentMobile?: 'flex-start' | 'center' | 'flex-end'
-    alignBaseline?: boolean
-    horizontalAlignmentColumn?: 'flex-start' | 'center' | 'flex-end'
-    horizontalAlignmentColumnMobile?: 'flex-start' | 'center' | 'flex-end'
-    verticalAlignmentColumn?: 'flex-start' | 'center' | 'flex-end' | 'space-between'
-    verticalAlignmentColumnMobile?: 'flex-start' | 'center' | 'flex-end' | 'space-between'
+    title?: string
+    blocks?: (TextBlock | ImageBlock | GroupBlock)[]
+    // Content settings
+    shareContentSettings?: boolean
+    visibility?: 'visible-all' | 'hidden--desktop' | 'hidden--mobile'
+    // Content Direction
+    contentDirection?: 'row' | 'column'
+    contentDirection_desktop?: 'row' | 'column'
+    // Content Alignment
+    contentAlignment?: 'flex-start' | 'center' | 'flex-end' | 'space-between'
+    contentAlignment_desktop?: 'flex-start' | 'center' | 'flex-end' | 'space-between'
+    // Cross-axis Alignment
+    contentAlignmentCrossAxis?: 'start' | 'center' | 'end'
+    contentAlignmentCrossAxis_desktop?: 'start' | 'center' | 'end'
+    // Gap
     gap?: number
-    gapMobile?: number
+    gap_desktop?: number
+    // Width
     width?: 'fit-content' | 'fill' | 'custom'
     customWidth?: number
-    widthMobile?: 'fit-content' | 'fill' | 'custom'
-    customWidthMobile?: number
-    height?: 'fit' | 'fill' | 'custom'
-    customHeight?: number
-    shareAppearanceSettings?: boolean
-    inheritColorScheme?: boolean
-    colorScheme?: 'scheme-1' | 'scheme-2' | 'scheme-3' | 'scheme-4' | 'scheme-5'
+    width_desktop?: 'fit-content' | 'fill' | 'custom'
+    customWidth_desktop?: number
+    // Background Media
     backgroundMedia?: 'none' | 'image' | 'video'
-    backgroundMediaMobile?: 'none' | 'image' | 'video'
+    backgroundMedia_desktop?: 'none' | 'image' | 'video'
+    // Video - Mobile
     video?: any
     videoPosition?: 'cover' | 'contain'
+    // Video - Desktop
+    video_desktop?: any
+    videoPosition_desktop?: 'cover' | 'contain'
+    // Image - Mobile
     backgroundImage?: any
     backgroundImagePosition?: 'cover' | 'fit'
-    border?: 'none' | 'solid'
-    borderWidth?: number
-    borderOpacity?: number
-    borderRadius?: number
-    borderRadiusMobile?: number
-    visibility?: 'visible-all' | 'hidden--desktop' | 'hidden--mobile'
+    // Image - Desktop
+    backgroundImage_desktop?: any
+    backgroundImagePosition_desktop?: 'cover' | 'fit'
+    // Background Color & Overlay
+    backgroundColor?: Color
     toggleOverlay?: boolean
     overlayColor?: Color
-    overlayStyle?: 'solid' | 'gradient'
-    gradientDirection?: 'to top' | 'to bottom'
-    sharePaddingSettings?: boolean
+    // Link
+    link?: string
+    openInNewTab?: boolean
+    // Layout settings
+    shareLayoutSettings?: boolean
+    // Corner radius - Mobile
+    cornerRadius?: number
+    // Corner radius - Desktop
+    cornerRadius_desktop?: number
+    // Padding - Mobile
     paddingBlockStart?: number
-    paddingBlockStartMobile?: number
     paddingBlockEnd?: number
-    paddingBlockEndMobile?: number
     paddingInlineStart?: number
-    paddingInlineStartMobile?: number
     paddingInlineEnd?: number
-    paddingInlineEndMobile?: number
-    blocks?: (TextBlock | ImageBlock | GroupBlock)[]
+    // Padding - Desktop
+    paddingBlockStart_desktop?: number
+    paddingBlockEnd_desktop?: number
+    paddingInlineStart_desktop?: number
+    paddingInlineEnd_desktop?: number
 }
 
 export interface SectionModule extends PagebuilderModule {

@@ -101,7 +101,6 @@ export default [
         title: 'Corner radius',
         type: 'number',
         initialValue: 0,
-        hidden: ({parent}) => !parent?.background,
         options: {layout: 'slider', min: 0, max: 50, step: 1},
         group: 'layout'
       }),
@@ -110,7 +109,7 @@ export default [
         title: 'Corner radius (Desktop)',
         type: 'number',
         initialValue: 0,
-        hidden: ({parent}) => parent?.shareLayoutSettings === true || !parent?.background,
+        hidden: ({parent}) => parent?.shareLayoutSettings === true,
         options: {layout: 'slider', min: 0, max: 50, step: 1},
         group: 'layout'
       }),

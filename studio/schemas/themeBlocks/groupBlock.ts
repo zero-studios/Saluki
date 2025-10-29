@@ -4,9 +4,18 @@ export default defineType({
     name: 'groupBlock',
     title: 'Group',
     type: 'object',
+    groups: [
+      {name: 'content', title: 'Content', default: true},
+      {name: 'layout', title: 'Layout'},
+    ],
     fields: [
-      defineField({name: 'title', title: 'Title', type: 'string',}),
-      
+      defineField({
+        name: 'title', 
+        title: 'Title', 
+        type: 'string',
+        group: 'content'
+      }),
+
       defineField({
         name: 'blocks',
         title: 'Blocks',
@@ -15,146 +24,149 @@ export default defineType({
           {type: 'textBlock'},
           {type: 'imageBlock'},
         ],
+        group: 'content'
       }),
-  
-      defineField({name: 'link', title: 'Link', type: 'url'}),
-      defineField({name: 'openInNewTab', title: 'Open in new tab', type: 'boolean', initialValue: false}),
-      defineField({name: 'shareLayoutSettings', title: 'Share layout settings across devices', type: 'boolean', initialValue: true}),
+
+      defineField({
+        name: 'shareContentSettings', 
+        title: 'Share content settings across devices', 
+        type: 'boolean', 
+        initialValue: true,
+        group: 'content'
+      }),
+
+      defineField({
+          name: 'visibility',
+          title: 'Visibility',
+          type: 'string',
+          initialValue: 'visible-all',
+          options: {list: [
+            {title: 'All devices', value: 'visible-all'},
+            {title: 'Mobile only', value: 'hidden--desktop'},
+            {title: 'Desktop only', value: 'hidden--mobile'},
+          ]},
+          group: 'content'
+      }),
+
+      // Content Direction
       defineField({
         name: 'contentDirection',
         title: 'Content direction',
         type: 'string',
         initialValue: 'column',
-        options: {list: [
-          {title: 'Vertical', value: 'column'},
-          {title: 'Horizontal', value: 'row'},
-        ]},
+        options: {
+          layout: "radio",
+          list: [
+            {title: 'Vertical', value: 'column'},
+            {title: 'Horizontal', value: 'row'},
+          ]
+        },
+        group: 'content'
       }),
       defineField({
-        name: 'verticalOnMobile',
-        title: 'Vertical on mobile',
-        type: 'boolean',
-        initialValue: true,
-        hidden: ({parent}) => parent?.contentDirection !== 'row',
+        name: 'contentDirection_desktop',
+        title: 'Content direction (Desktop)',
+        type: 'string',
+        initialValue: 'column',
+        options: {
+          layout: "radio",
+          list: [
+            {title: 'Vertical', value: 'column'},
+            {title: 'Horizontal', value: 'row'},
+          ]
+        },
+        hidden: ({parent}) => parent?.shareContentSettings === true,
+        group: 'content'
       }),
+
+      // Content Alignment
       defineField({
-        name: 'horizontalAlignment',
-        title: 'Horizontal alignment',
+        name: 'contentAlignment',
+        title: 'Content alignment',
         type: 'string',
         initialValue: 'flex-start',
-        options: {list: [
-          {title: 'Left', value: 'flex-start'},
-          {title: 'Center', value: 'center'},
-          {title: 'Right', value: 'flex-end'},
-          {title: 'Space between', value: 'space-between'},
-        ]},
-        hidden: ({parent}) => parent?.contentDirection !== 'row',
+        options: {
+          layout: "radio",
+          list: [
+            {title: 'Start', value: 'flex-start'},
+            {title: 'Center', value: 'center'},
+            {title: 'End', value: 'flex-end'},
+            {title: 'Space between', value: 'space-between'},
+          ]
+        },
+        group: 'content'
       }),
       defineField({
-        name: 'horizontalAlignmentMobile',
-        title: 'Horizontal alignment (Mobile)',
-        type: 'string',
-        options: {list: [
-          {title: 'Left', value: 'flex-start'},
-          {title: 'Center', value: 'center'},
-          {title: 'Right', value: 'flex-end'},
-          {title: 'Space between', value: 'space-between'},
-        ]},
-        hidden: ({parent}) => parent?.contentDirection !== 'row' || !!parent?.shareLayoutSettings,
-      }),
-      defineField({
-        name: 'verticalAlignment',
-        title: 'Vertical alignment',
-        type: 'string',
-        initialValue: 'center',
-        options: {list: [
-          {title: 'Top', value: 'flex-start'},
-          {title: 'Center', value: 'center'},
-          {title: 'Bottom', value: 'flex-end'},
-        ]},
-        hidden: ({parent}) => parent?.contentDirection !== 'row',
-      }),
-      defineField({
-        name: 'verticalAlignmentMobile',
-        title: 'Vertical alignment (Mobile)',
-        type: 'string',
-        options: {list: [
-          {title: 'Top', value: 'flex-start'},
-          {title: 'Center', value: 'center'},
-          {title: 'Bottom', value: 'flex-end'},
-        ]},
-        hidden: ({parent}) => parent?.contentDirection !== 'row' || !!parent?.shareLayoutSettings,
-      }),
-      defineField({
-        name: 'alignBaseline',
-        title: 'Align baseline',
-        type: 'boolean',
-        initialValue: false,
-        hidden: ({parent}) => parent?.verticalAlignment !== 'flex-end',
-      }),
-      defineField({
-        name: 'horizontalAlignmentColumn',
-        title: 'Horizontal alignment (column)',
+        name: 'contentAlignment_desktop',
+        title: 'Content alignment (Desktop)',
         type: 'string',
         initialValue: 'flex-start',
-        options: {list: [
-          {title: 'Left', value: 'flex-start'},
-          {title: 'Center', value: 'center'},
-          {title: 'Right', value: 'flex-end'},
-        ]},
-        hidden: ({parent}) => parent?.contentDirection === 'row',
+        options: {
+          layout: "radio",
+          list: [
+            {title: 'Start', value: 'flex-start'},
+            {title: 'Center', value: 'center'},
+            {title: 'End', value: 'flex-end'},
+            {title: 'Space between', value: 'space-between'},
+          ]
+        },
+        hidden: ({parent}) => parent?.shareContentSettings === true,
+        group: 'content'
       }),
+
+      // Cross-axis Alignment
       defineField({
-        name: 'horizontalAlignmentColumnMobile',
-        title: 'Horizontal alignment (column, Mobile)',
-        type: 'string',
-        options: {list: [
-          {title: 'Left', value: 'flex-start'},
-          {title: 'Center', value: 'center'},
-          {title: 'Right', value: 'flex-end'},
-        ]},
-        hidden: ({parent}) => parent?.contentDirection === 'row' || !!parent?.shareLayoutSettings,
-      }),
-      defineField({
-        name: 'verticalAlignmentColumn',
-        title: 'Vertical alignment (column)',
+        name: 'contentAlignmentCrossAxis',
+        title: 'Cross-axis alignment',
         type: 'string',
         initialValue: 'center',
-        options: {list: [
-          {title: 'Top', value: 'flex-start'},
-          {title: 'Center', value: 'center'},
-          {title: 'Bottom', value: 'flex-end'},
-          {title: 'Space between', value: 'space-between'},
-        ]},
-        hidden: ({parent}) => parent?.contentDirection !== 'column',
+        options: {
+          layout: "radio",
+          list: [
+            {title: 'Start', value: 'start'},
+            {title: 'Center', value: 'center'},
+            {title: 'End', value: 'end'},
+          ]
+        },
+        group: 'content'
       }),
       defineField({
-        name: 'verticalAlignmentColumnMobile',
-        title: 'Vertical alignment (column, Mobile)',
+        name: 'contentAlignmentCrossAxis_desktop',
+        title: 'Cross-axis alignment (Desktop)',
         type: 'string',
-        options: {list: [
-          {title: 'Top', value: 'flex-start'},
-          {title: 'Center', value: 'center'},
-          {title: 'Bottom', value: 'flex-end'},
-          {title: 'Space between', value: 'space-between'},
-        ]},
-        hidden: ({parent}) => parent?.contentDirection !== 'column' || !!parent?.shareLayoutSettings,
+        initialValue: 'center',
+        options: {
+          layout: "radio",
+          list: [
+            {title: 'Start', value: 'start'},
+            {title: 'Center', value: 'center'},
+            {title: 'End', value: 'end'},
+          ]
+        },
+        hidden: ({parent}) => parent?.shareContentSettings === true,
+        group: 'content'
       }),
+
+      // Gap
       defineField({
         name: 'gap',
         title: 'Gap',
         type: 'number',
         options: {layout: 'slider', min: 0, max: 100, step: 1},
         initialValue: 12,
+        group: 'content'
       }),
       defineField({
-        name: 'gapMobile',
-        title: 'Gap (Mobile)',
+        name: 'gap_desktop',
+        title: 'Gap (Desktop)',
         type: 'number',
         options: {layout: 'slider', min: 0, max: 100, step: 1},
-        hidden: ({parent}) => !!parent?.shareLayoutSettings,
+        initialValue: 12,
+        hidden: ({parent}) => parent?.shareContentSettings === true,
+        group: 'content'
       }),
-  
+
+      // Width
       defineField({
         name: 'width',
         title: 'Width',
@@ -165,6 +177,7 @@ export default defineType({
           {title: 'Fill', value: 'fill'},
           {title: 'Custom', value: 'custom'},
         ]},
+        group: 'content'
       }),
       defineField({
         name: 'customWidth',
@@ -173,10 +186,11 @@ export default defineType({
         options: {layout: 'slider', min: 0, max: 100, step: 1},
         initialValue: 100,
         hidden: ({parent}) => parent?.width !== 'custom',
+        group: 'content'
       }),
       defineField({
-        name: 'widthMobile',
-        title: 'Width (Mobile)',
+        name: 'width_desktop',
+        title: 'Width (Desktop)',
         type: 'string',
         initialValue: 'fill',
         options: {list: [
@@ -184,56 +198,20 @@ export default defineType({
           {title: 'Fill', value: 'fill'},
           {title: 'Custom', value: 'custom'},
         ]},
+        hidden: ({parent}) => parent?.shareContentSettings === true,
+        group: 'content'
       }),
       defineField({
-        name: 'customWidthMobile',
-        title: 'Custom width (Mobile, %)',
+        name: 'customWidth_desktop',
+        title: 'Custom width (Desktop) (%)',
         type: 'number',
         options: {layout: 'slider', min: 0, max: 100, step: 1},
         initialValue: 100,
-        hidden: ({parent}) => parent?.widthMobile !== 'custom',
+        hidden: ({parent}) => parent?.shareContentSettings === true || parent?.width_desktop !== 'custom',
+        group: 'content'
       }),
-      defineField({
-        name: 'height',
-        title: 'Height',
-        type: 'string',
-        initialValue: 'fit',
-        options: {list: [
-          {title: 'Fit content', value: 'fit'},
-          {title: 'Fill', value: 'fill'},
-          {title: 'Custom', value: 'custom'},
-        ]},
-      }),
-      defineField({
-        name: 'customHeight',
-        title: 'Custom height (%)',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 100,
-        hidden: ({parent}) => parent?.height !== 'custom',
-      }),
-  
-      defineField({name: 'shareAppearanceSettings', title: 'Share appearance settings across devices', type: 'boolean', initialValue: true}),
-      defineField({
-        name: 'inheritColorScheme',
-        title: 'Inherit color scheme',
-        type: 'boolean',
-        initialValue: true,
-      }),
-      defineField({
-        name: 'colorScheme',
-        title: 'Color scheme',
-        type: 'string',
-        initialValue: 'scheme-1',
-        options: {list: [
-          {title: 'Scheme 1', value: 'scheme-1'},
-          {title: 'Scheme 2', value: 'scheme-2'},
-          {title: 'Scheme 3', value: 'scheme-3'},
-          {title: 'Scheme 4', value: 'scheme-4'},
-          {title: 'Scheme 5', value: 'scheme-5'},
-        ]},
-        hidden: ({parent}) => !!parent?.inheritColorScheme,
-      }),
+
+      // Background Media
       defineField({
         name: 'backgroundMedia',
         title: 'Background media',
@@ -244,10 +222,11 @@ export default defineType({
           {title: 'Image', value: 'image'},
           {title: 'Video', value: 'video'},
         ]},
+        group: 'content'
       }),
       defineField({
-        name: 'backgroundMediaMobile',
-        title: 'Background media (Mobile)',
+        name: 'backgroundMedia_desktop',
+        title: 'Background media (Desktop)',
         type: 'string',
         initialValue: 'none',
         options: {list: [
@@ -255,13 +234,17 @@ export default defineType({
           {title: 'Image', value: 'image'},
           {title: 'Video', value: 'video'},
         ]},
-        hidden: ({parent}) => !!parent?.shareAppearanceSettings,
+        hidden: ({parent}) => parent?.shareContentSettings === true,
+        group: 'content'
       }),
+      
+      // Video - Mobile
       defineField({
         name: 'video',
         title: 'Video',
         type: 'file',
         hidden: ({parent}) => parent?.backgroundMedia !== 'video',
+        group: 'content'
       }),
       defineField({
         name: 'videoPosition',
@@ -273,12 +256,37 @@ export default defineType({
           {title: 'Contain', value: 'contain'},
         ]},
         hidden: ({parent}) => parent?.backgroundMedia !== 'video',
+        group: 'content'
       }),
+
+      // Video - Desktop
+      defineField({
+        name: 'video_desktop',
+        title: 'Video (Desktop)',
+        type: 'file',
+        hidden: ({parent}) => parent?.shareContentSettings === true || parent?.backgroundMedia_desktop !== 'video',
+        group: 'content'
+      }),
+      defineField({
+        name: 'videoPosition_desktop',
+        title: 'Video position (Desktop)',
+        type: 'string',
+        initialValue: 'cover',
+        options: {list: [
+          {title: 'Cover', value: 'cover'},
+          {title: 'Contain', value: 'contain'},
+        ]},
+        hidden: ({parent}) => parent?.shareContentSettings === true || parent?.backgroundMedia_desktop !== 'video',
+        group: 'content'
+      }),
+
+      // Image - Mobile
       defineField({
         name: 'backgroundImage',
         title: 'Background image',
         type: 'image',
         hidden: ({parent}) => parent?.backgroundMedia !== 'image',
+        group: 'content'
       }),
       defineField({
         name: 'backgroundImagePosition',
@@ -290,91 +298,160 @@ export default defineType({
           {title: 'Fit', value: 'fit'},
         ]},
         hidden: ({parent}) => parent?.backgroundMedia !== 'image',
+        group: 'content'
       }),
-  
+
+      // Image - Desktop
       defineField({
-        name: 'border',
-        title: 'Borders',
+        name: 'backgroundImage_desktop',
+        title: 'Background image (Desktop)',
+        type: 'image',
+        hidden: ({parent}) => parent?.shareContentSettings === true || parent?.backgroundMedia_desktop !== 'image',
+        group: 'content'
+      }),
+      defineField({
+        name: 'backgroundImagePosition_desktop',
+        title: 'Image position (Desktop)',
         type: 'string',
-        initialValue: 'none',
+        initialValue: 'cover',
         options: {list: [
-          {title: 'None', value: 'none'},
-          {title: 'Solid', value: 'solid'},
+          {title: 'Cover', value: 'cover'},
+          {title: 'Fit', value: 'fit'},
         ]},
+        hidden: ({parent}) => parent?.shareContentSettings === true || parent?.backgroundMedia_desktop !== 'image',
+        group: 'content'
+      }),
+
+      // Background Color & Overlay
+      defineField({
+        name: 'backgroundColor',
+        title: 'Background color',
+        type: 'color',
+        group: 'content',
       }),
       defineField({
-        name: 'borderWidth',
-        title: 'Border width (px)',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 10, step: 0.5},
-        initialValue: 1,
-        hidden: ({parent}) => parent?.border === 'none',
+        name: 'toggleOverlay', 
+        title: 'Background overlay', 
+        type: 'boolean', 
+        initialValue: false,
+        group: 'content'
       }),
       defineField({
-        name: 'borderOpacity',
-        title: 'Border opacity (%)',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 100,
-        hidden: ({parent}) => parent?.border === 'none',
-      }),
-      defineField({
-        name: 'borderRadius',
-        title: 'Border radius (px)',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-      }),
-      defineField({
-        name: 'borderRadiusMobile',
-        title: 'Border radius (Mobile, px)',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-        hidden: ({parent}) => !!parent?.shareAppearanceSettings,
-      }),
-  
-      defineField({name: 'visibility', title: 'Visibility', type: 'string', initialValue: 'visible-all', options: {list: [
-        {title: 'All devices', value: 'visible-all'},
-        {title: 'Mobile only', value: 'hidden--desktop'},
-        {title: 'Desktop only', value: 'hidden--mobile'},
-      ]}}),
-  
-      defineField({name: 'toggleOverlay', title: 'Background overlay', type: 'boolean', initialValue: false}),
-      defineField({name: 'overlayColor', title: 'Overlay color', type: 'color', hidden: ({parent}) => !parent?.toggleOverlay}),
-      defineField({
-        name: 'overlayStyle',
-        title: 'Overlay style',
-        type: 'string',
-        initialValue: 'solid',
-        options: {list: [
-          {title: 'Solid', value: 'solid'},
-          {title: 'Gradient', value: 'gradient'},
-        ]},
+        name: 'overlayColor', 
+        title: 'Overlay color', 
+        type: 'color', 
         hidden: ({parent}) => !parent?.toggleOverlay,
+        group: 'content'
+      }),
+
+      // Link
+      defineField({
+        name: 'link', 
+        title: 'Link', 
+        type: 'url',
+        group: 'content'
       }),
       defineField({
-        name: 'gradientDirection',
-        title: 'Gradient direction',
-        type: 'string',
-        initialValue: 'to top',
-        options: {list: [
-          {title: 'Up', value: 'to top'},
-          {title: 'Down', value: 'to bottom'},
-        ]},
-        hidden: ({parent}) => !parent?.toggleOverlay || parent?.overlayStyle !== 'gradient',
+        name: 'openInNewTab', 
+        title: 'Open in new tab', 
+        type: 'boolean', 
+        initialValue: false,
+        group: 'content'
       }),
-  
-      defineField({name: 'sharePaddingSettings', title: 'Share padding settings across devices', type: 'boolean', initialValue: true}),
-      defineField({name: 'paddingBlockStart', title: 'Padding top', type: 'number', options: {layout: 'slider', min: 0, max: 100, step: 1}, initialValue: 0}),
-      defineField({name: 'paddingBlockStartMobile', title: 'Top (Mobile)', type: 'number', options: {layout: 'slider', min: 0, max: 100, step: 1}, hidden: ({parent}) => !!parent?.sharePaddingSettings, initialValue: 0}),
-      defineField({name: 'paddingBlockEnd', title: 'Padding bottom', type: 'number', options: {layout: 'slider', min: 0, max: 100, step: 1}, initialValue: 0}),
-      defineField({name: 'paddingBlockEndMobile', title: 'Bottom (Mobile)', type: 'number', options: {layout: 'slider', min: 0, max: 100, step: 1}, hidden: ({parent}) => !!parent?.sharePaddingSettings, initialValue: 0}),
-      defineField({name: 'paddingInlineStart', title: 'Padding left', type: 'number', options: {layout: 'slider', min: 0, max: 100, step: 1}, initialValue: 0}),
-      defineField({name: 'paddingInlineStartMobile', title: 'Left (Mobile)', type: 'number', options: {layout: 'slider', min: 0, max: 100, step: 1}, hidden: ({parent}) => !!parent?.sharePaddingSettings, initialValue: 0}),
-      defineField({name: 'paddingInlineEnd', title: 'Padding right', type: 'number', options: {layout: 'slider', min: 0, max: 100, step: 1}, initialValue: 0}),
-      defineField({name: 'paddingInlineEndMobile', title: 'Right (Mobile)', type: 'number', options: {layout: 'slider', min: 0, max: 100, step: 1}, hidden: ({parent}) => !!parent?.sharePaddingSettings, initialValue: 0}),
-  
+
+      // Layout fields (from sharedLayoutFields, but manually added)
+      defineField({
+        name: 'shareLayoutSettings', 
+        title: 'Share layout settings across devices', 
+        type: 'boolean', 
+        initialValue: true,
+        group: 'layout'
+      }),
+      defineField({
+        name: 'cornerRadius',
+        title: 'Corner radius',
+        type: 'number',
+        initialValue: 0,
+        options: {layout: 'slider', min: 0, max: 50, step: 1},
+        group: 'layout'
+      }),
+      defineField({
+        name: 'cornerRadius_desktop',
+        title: 'Corner radius (Desktop)',
+        type: 'number',
+        initialValue: 0,
+        hidden: ({parent}) => parent?.shareLayoutSettings === true,
+        options: {layout: 'slider', min: 0, max: 50, step: 1},
+        group: 'layout'
+      }),
+      defineField({
+        name: 'paddingBlockStart',
+        title: 'Padding top',
+        type: 'number',
+        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        initialValue: 0,
+        group: 'layout'
+      }),
+      defineField({
+        name: 'paddingBlockStart_desktop',
+        title: 'Padding top (Desktop)',
+        type: 'number',
+        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        initialValue: 0,
+        hidden: ({parent}) => parent?.shareLayoutSettings === true,
+        group: 'layout'
+      }),
+      defineField({
+        name: 'paddingBlockEnd',
+        title: 'Padding bottom',
+        type: 'number',
+        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        initialValue: 0,
+        group: 'layout'
+      }),
+      defineField({
+        name: 'paddingBlockEnd_desktop',
+        title: 'Padding bottom (Desktop)',
+        type: 'number',
+        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        initialValue: 0,
+        hidden: ({parent}) => parent?.shareLayoutSettings === true,
+        group: 'layout'
+      }),
+      defineField({
+        name: 'paddingInlineStart',
+        title: 'Padding left',
+        type: 'number',
+        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        initialValue: 0,
+        group: 'layout'
+      }),
+      defineField({
+        name: 'paddingInlineStart_desktop',
+        title: 'Padding left (Desktop)',
+        type: 'number',
+        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        initialValue: 0,
+        hidden: ({parent}) => parent?.shareLayoutSettings === true,
+        group: 'layout'
+      }),
+      defineField({
+        name: 'paddingInlineEnd',
+        title: 'Padding right',
+        type: 'number',
+        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        initialValue: 0,
+        group: 'layout'
+      }),
+      defineField({
+        name: 'paddingInlineEnd_desktop',
+        title: 'Padding right (Desktop)',
+        type: 'number',
+        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        initialValue: 0,
+        hidden: ({parent}) => parent?.shareLayoutSettings === true,
+        group: 'layout'
+      }),
     ],
     preview: {
       select: {title: 'title'},

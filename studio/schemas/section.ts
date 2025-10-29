@@ -20,6 +20,7 @@ export default defineType({
       of: [
         {type: 'groupBlock'},
         {type: 'textBlock'},
+        {type: 'imageBlock'},
       ],
     }),
     defineField({name: 'shareLayoutSettings', title: 'Share layout settings across devices', type: 'boolean', group: 'layout', initialValue: true}),

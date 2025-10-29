@@ -1,10 +1,17 @@
 <script lang="ts">
   import { stegaClean } from "@sanity/client/stega";
+  import { createDataAttribute } from "@sanity/visual-editing"
+
   import type { SectionModule, GroupBlock, TextBlock } from "$lib/sanity/types";
   import { molecules_map } from "../molecules/molecule_map";
 
    let { sanity_obj }: { sanity_obj: SectionModule } = $props();
 
+   const attr = createDataAttribute({
+    id: sanity_obj._id,
+    type: sanity_obj._type,
+    path: "sections"
+   })
    // Get values from Sanity and ensure stega encoding is cleaned up in any fields that are used for styling:
 
    const dir = $derived(stegaClean(sanity_obj && sanity_obj.contentDirection) ?? 'column');
@@ -55,7 +62,7 @@
 
 </script>
 
-<section class="section-wrapper {widthClass}" style={`${layoutStyle} ${paddingStyle}`}>
+<section class="section-wrapper {widthClass}" style={`${layoutStyle} ${paddingStyle}`} data-sanity={attr().toString()}>
   <div class="section-content layout-panel-flex layout-panel-flex--{dir}">
      {#each sanity_obj?.blocks as block (block._key)}
        {@const Component = molecules_map[block._type]}

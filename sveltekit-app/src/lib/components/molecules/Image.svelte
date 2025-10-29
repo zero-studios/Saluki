@@ -8,6 +8,13 @@
   
   const settings = $derived(stegaClean(sanity_obj));
 
+  // Content settings (mobile is base, desktop is variant)
+  const shareContentSettings = $derived(settings?.shareContentSettings ?? true);
+  const aspectRatio = $derived(settings?.aspectRatio ?? 'auto');
+  const aspectRatioDesktop = $derived(shareContentSettings ? aspectRatio : (settings?.aspectRatio_desktop ?? aspectRatio));
+  const objectFit = $derived(settings?.objectFit ?? 'cover');
+  const objectFitDesktop = $derived(shareContentSettings ? objectFit : (settings?.objectFit_desktop ?? objectFit));
+
   // Layout settings (mobile is base, desktop is variant)
   const shareLayoutSettings = $derived(settings?.shareLayoutSettings ?? true);
   const width = $derived(settings?.width ?? 'fit-content');
@@ -31,11 +38,19 @@
   const cornerRadius = $derived(settings?.cornerRadius ?? 0);
   const cornerRadiusDesktop = $derived(shareLayoutSettings ? cornerRadius : (settings?.cornerRadius_desktop ?? cornerRadius));
 
-  // Image URL
+  // Image URL and alt text
   const imageUrl = $derived(settings?.image ? urlFor(settings.image).url() : '');
-  const imageAlt = $derived((settings?.image as any)?.alt || '');
+  const imageAlt = $derived(settings?.alt || '');
 
   const styleVars = $derived({
+    // Content settings - Mobile
+    '--aspect-ratio-mobile': aspectRatio,
+    '--object-fit-mobile': objectFit,
+
+    // Content settings - Desktop
+    '--aspect-ratio-desktop': aspectRatioDesktop,
+    '--object-fit-desktop': objectFitDesktop,
+
     // Layout - Mobile (base)
     '--width-mobile': width,
     '--max-width-mobile': `var(--max-width--body-${maxWidth})`,
@@ -107,6 +122,8 @@
     height: auto;
     display: block;
     border-radius: var(--image-corner-radius-mobile, 0);
+    aspect-ratio: var(--aspect-ratio-mobile, auto);
+    object-fit: var(--object-fit-mobile, cover);
   }
 
   /* Mobile alignment */
@@ -138,6 +155,8 @@
       width: var(--width-desktop);
       max-width: var(--max-width-desktop, 100%);
       border-radius: var(--image-corner-radius-desktop, 0);
+      aspect-ratio: var(--aspect-ratio-desktop, auto);
+      object-fit: var(--object-fit-desktop, cover);
     }
 
     /* Desktop alignment */
