@@ -1,59 +1,34 @@
 import {defineField, defineType} from 'sanity'
+import sharedLayoutFields from './_sharedLayoutFields'
 
 export default defineType({
     name: 'textBlock',
     title: 'Text',
     type: 'object',
+    groups: [
+        {name: 'content', title: 'Content', default: true},
+        {name: 'layout', title: 'Layout'},
+    ],
     fields: [
       defineField({
         name: 'title',
         title: 'Title',
         type: 'string',
+        group: 'content',
       }),
       defineField({
         name: 'text',
         title: 'Text',
         type: 'blockContent',
+        group: 'content',
       }),
-      defineField({
-        name: 'width',
-        title: 'Width',
-        type: 'string',
-        initialValue: 'fit-content',
-        options: {
-          layout: 'radio',
-          list: [
-            {title: 'Fit content', value: 'fit-content'},
-            {title: 'Fill (100%)', value: '100%'},
-          ],
-        },
-      }),
-      defineField({
-        name: 'maxWidth',
-        title: 'Max width',
-        type: 'string',
-        initialValue: 'normal',
-        options: {
-          list: [
-            {title: 'Narrow', value: 'narrow'},
-            {title: 'Normal', value: 'normal'},
-            {title: 'None', value: 'none'},
-          ],
-        },
-      }),
-      defineField({
-        name: 'alignment',
-        title: 'Alignment',
-        type: 'string',
-        initialValue: 'left',
-        options: {list: ['left', 'center', 'right']},
-        hidden: ({parent}) => parent?.width !== '100%',
-      }),
+    
       defineField({
         name: 'typePreset',
         title: 'Type preset',
         type: 'string',
         initialValue: 'rte',
+        group: 'content',
         options: {
           list: [
             {title: 'Default (Rich text)', value: 'rte'},
@@ -76,6 +51,7 @@ export default defineType({
         name: 'font',
         title: 'Font',
         type: 'string',
+        group: 'content',
         options: {
           list: [
             {title: 'Body', value: 'var(--font-body--family)'},
@@ -91,6 +67,7 @@ export default defineType({
         title: 'Font size',
         type: 'string',
         initialValue: '1rem',
+        group: 'content',
         options: {
           list: [
             {title: 'Default', value: ''},
@@ -122,6 +99,7 @@ export default defineType({
         title: 'Font size (Mobile)',
         type: 'string',
         initialValue: '1rem',
+        group: 'content',
         options: {
           list: [
             {title: 'Default', value: ''},
@@ -153,6 +131,7 @@ export default defineType({
         title: 'Line height',
         type: 'string',
         initialValue: 'normal',
+        group: 'content',
         options: {
           list: [
             {title: 'Tight', value: 'tight'},
@@ -167,6 +146,7 @@ export default defineType({
         title: 'Letter spacing',
         type: 'string',
         initialValue: 'normal',
+        group: 'content',
         options: {
           list: [
             {title: 'Tight', value: 'tight'},
@@ -181,6 +161,7 @@ export default defineType({
         title: 'Case',
         type: 'string',
         initialValue: 'none',
+        group: 'content',
         options: {list: [
           {title: 'Default', value: 'none'},
           {title: 'Uppercase', value: 'uppercase'},
@@ -191,6 +172,7 @@ export default defineType({
         name: 'textWrap',
         title: 'Wrap',
         type: 'string',
+        group: 'content',
         options: {list: [
           {title: 'Pretty', value: 'pretty'},
           {title: 'Balance', value: 'balance'},
@@ -199,11 +181,11 @@ export default defineType({
         hidden: ({parent}) => parent?.typePreset !== 'custom',
       }),
   
-      
       defineField({
         name: 'color',
         title: 'Color',
         type: 'string',
+        group: 'content',
         initialValue: 'var(--color-foreground)',
         options: {list: [
           {title: 'Text', value: 'var(--color-foreground)'},
@@ -217,49 +199,16 @@ export default defineType({
         title: 'Background',
         type: 'boolean',
         initialValue: false,
+        group: 'content',
       }),
       defineField({
         name: 'backgroundColor',
         title: 'Background color',
         type: 'color',
+        group: 'content',
         hidden: ({parent}) => !parent?.background,
       }),
-      defineField({
-        name: 'cornerRadius',
-        title: 'Corner radius',
-        type: 'number',
-        initialValue: 0,
-        hidden: ({parent}) => !parent?.background,
-        options: {layout: 'slider', min: 0, max: 50, step: 1},
-      }),
-      defineField({
-        name: 'paddingBlockStart',
-        title: 'Padding top',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-      }),
-      defineField({
-        name: 'paddingBlockEnd',
-        title: 'Padding bottom',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-      }),
-      defineField({
-        name: 'paddingInlineStart',
-        title: 'Padding left',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-      }),
-      defineField({
-        name: 'paddingInlineEnd',
-        title: 'Padding right',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-      }),
+      ...sharedLayoutFields,
     ],
     preview: {
       select: { title: 'title'},

@@ -11,7 +11,10 @@ export default defineType({
         name: 'blocks',
         title: 'Blocks',
         type: 'array',
-        of: [{type: 'textBlock'}],
+        of: [
+          {type: 'textBlock'},
+          {type: 'imageBlock'},
+        ],
       }),
   
       defineField({name: 'link', title: 'Link', type: 'url'}),

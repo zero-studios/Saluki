@@ -163,9 +163,18 @@ export interface TextBlock {
     _type: 'textBlock'
     _key: string
     text: PortableTextBlock[]
+    // Shared layout settings
+    shareLayoutSettings?: boolean
+    visibility?: 'visible-all' | 'hidden--desktop' | 'hidden--mobile'
+    // Layout - Mobile (base)
     width?: 'fit-content' | '100%'
     maxWidth?: 'narrow' | 'normal' | 'none'
     alignment?: 'left' | 'center' | 'right'
+    // Layout - Desktop
+    width_desktop?: 'fit-content' | '100%'
+    maxWidth_desktop?: 'narrow' | 'normal' | 'none'
+    alignment_desktop?: 'left' | 'center' | 'right'
+    // Typography
     typePreset?: 'rte' | 'paragraph' | 'paragraph_2' | 'paragraph_3' | 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'custom'
     font?: string
     fontSize?: string
@@ -175,13 +184,55 @@ export interface TextBlock {
     textTransform?: 'none' | 'uppercase'
     textWrap?: 'pretty' | 'balance' | 'nowrap'
     color?: string
+    // Background
     background?: boolean
     backgroundColor?: Color
+    // Corner radius - Mobile
     cornerRadius?: number
+    // Corner radius - Desktop
+    cornerRadius_desktop?: number
+    // Padding - Mobile
     paddingBlockStart?: number
     paddingBlockEnd?: number
     paddingInlineStart?: number
     paddingInlineEnd?: number
+    // Padding - Desktop
+    paddingBlockStart_desktop?: number
+    paddingBlockEnd_desktop?: number
+    paddingInlineStart_desktop?: number
+    paddingInlineEnd_desktop?: number
+}
+
+export interface ImageBlock {
+    _type: 'imageBlock'
+    _key: string
+    image?: ImageAsset
+    backgroundColor?: Color
+    // Shared layout settings
+    shareLayoutSettings?: boolean
+    visibility?: 'visible-all' | 'hidden--desktop' | 'hidden--mobile'
+    // Layout - Mobile (base)
+    width?: 'fit-content' | '100%'
+    maxWidth?: 'narrow' | 'normal' | 'none'
+    alignment?: 'left' | 'center' | 'right'
+    // Layout - Desktop
+    width_desktop?: 'fit-content' | '100%'
+    maxWidth_desktop?: 'narrow' | 'normal' | 'none'
+    alignment_desktop?: 'left' | 'center' | 'right'
+    // Corner radius - Mobile
+    cornerRadius?: number
+    // Corner radius - Desktop
+    cornerRadius_desktop?: number
+    // Padding - Mobile
+    paddingBlockStart?: number
+    paddingBlockEnd?: number
+    paddingInlineStart?: number
+    paddingInlineEnd?: number
+    // Padding - Desktop
+    paddingBlockStart_desktop?: number
+    paddingBlockEnd_desktop?: number
+    paddingInlineStart_desktop?: number
+    paddingInlineEnd_desktop?: number
 }
 
 export interface GroupBlock {
@@ -237,7 +288,7 @@ export interface GroupBlock {
     paddingInlineStartMobile?: number
     paddingInlineEnd?: number
     paddingInlineEndMobile?: number
-    blocks?: (TextBlock | GroupBlock)[]
+    blocks?: (TextBlock | ImageBlock | GroupBlock)[]
 }
 
 export interface SectionModule extends PagebuilderModule {
@@ -281,5 +332,5 @@ export interface SectionModule extends PagebuilderModule {
     sharePaddingSettings?: boolean
     paddingBlockStartMobile?: number
     paddingBlockEndMobile?: number
-    blocks: (GroupBlock | TextBlock)[]
+    blocks: (GroupBlock | TextBlock | ImageBlock)[]
 }

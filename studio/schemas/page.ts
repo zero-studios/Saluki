@@ -2,8 +2,6 @@ import {defineField, defineType} from 'sanity'
 import {isUniqueAcrossAllDocuments} from '../lib/functions/isUnique'
 import {seoFields} from "../lib/blocks/seoFields"
 
-// Removed pagebuilder modules in favor of reusable Section documents
-
 export default defineType({
     name: 'page',
     title: 'Page',

@@ -5,8 +5,8 @@ export default defineType({
   title: 'Section',
   type: 'document',
   groups: [
-    {name: 'content', title: 'Content'},
-    {name: 'layout', title: 'Layout', default: true},
+    {name: 'content', title: 'Content', default: true},
+    {name: 'layout', title: 'Layout'},
     {name: 'appearance', title: 'Appearance'},
     {name: 'padding', title: 'Padding'},
   ],
