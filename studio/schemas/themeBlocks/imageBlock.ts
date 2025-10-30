@@ -1,5 +1,6 @@
 import {defineField, defineType} from 'sanity'
-import sharedLayoutFields from './_sharedLayoutFields'
+import sharedStyleFields from './_sharedStyleFields'
+import { ButtonGroupInput } from '../../lib/components/ButtonGroupInput'
 
 export default defineType({
     name: 'imageBlock',
@@ -7,7 +8,7 @@ export default defineType({
     type: 'object',
     groups: [
         {name: 'content', title: 'Content', default: true},
-        {name: 'layout', title: 'Layout'},
+        {name: 'styles', title: 'Styles'},
     ],
     fields: [
         defineField({
@@ -92,6 +93,9 @@ export default defineType({
                 ],
             },
             group: 'content',
+            components: {
+                input: ButtonGroupInput
+            }
         }),
         defineField({
             name: 'objectFit_desktop',
@@ -108,8 +112,37 @@ export default defineType({
             },
             hidden: ({parent}) => parent?.shareContentSettings === true,
             group: 'content',
+            components: {
+                input: ButtonGroupInput
+            }
         }),
 
-        ...sharedLayoutFields,
+        ...sharedStyleFields,
+        
+        // Alignment fields (specific to imageBlock)
+        defineField({
+            name: 'alignment',
+            title: 'Alignment',
+            type: 'string',
+            initialValue: 'left',
+            options: {list: ['left', 'center', 'right']},
+            hidden: ({parent}) => parent?.width !== '100%',
+            group: 'styles',
+            components: {
+                input: ButtonGroupInput
+            }
+        }),
+        defineField({
+            name: 'alignment_desktop',
+            title: 'Alignment (Desktop)',
+            type: 'string',
+            initialValue: 'left',
+            options: {list: ['left', 'center', 'right']},
+            hidden: ({parent}) => parent?.shareLayoutSettings === true || parent?.width_desktop !== '100%',
+            group: 'styles',
+            components: {
+                input: ButtonGroupInput
+            }
+        }),
     ]
 })

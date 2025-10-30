@@ -27,12 +27,6 @@
   const gap = $derived(settings?.gap ?? 12);
   const gapDesktop = $derived(shareContentSettings ? gap : (settings?.gap_desktop ?? gap));
   
-  // Width
-  const width = $derived(settings?.width ?? 'fill');
-  const widthDesktop = $derived(shareContentSettings ? width : (settings?.width_desktop ?? width));
-  const customWidth = $derived(settings?.customWidth ?? 100);
-  const customWidthDesktop = $derived(shareContentSettings ? customWidth : (settings?.customWidth_desktop ?? customWidth));
-  
   // Background Media
   const backgroundMedia = $derived(settings?.backgroundMedia ?? 'none');
   const backgroundMediaDesktop = $derived(shareContentSettings ? backgroundMedia : (settings?.backgroundMedia_desktop ?? backgroundMedia));
@@ -71,20 +65,26 @@
   const cornerRadius = $derived(settings?.cornerRadius ?? 0);
   const cornerRadiusDesktop = $derived(shareLayoutSettings ? cornerRadius : (settings?.cornerRadius_desktop ?? cornerRadius));
 
+  // Width (from sharedStyleFields)
+  const width = $derived(settings?.width ?? 'fit-content');
+  const widthDesktop = $derived(shareLayoutSettings ? width : (settings?.width_desktop ?? width));
+  const customWidth = $derived(settings?.custom_width ?? 50);
+  const customWidthDesktop = $derived(shareLayoutSettings ? customWidth : (settings?.custom_width_desktop ?? customWidth));
+
   const styleVars = $derived({
     // Content settings - Mobile
     '--content-direction-mobile': contentDirection,
     '--content-alignment-mobile': contentAlignment,
     '--content-alignment-cross-axis-mobile': contentAlignmentCrossAxis,
     '--gap-mobile': `${gap}px`,
-    '--width-mobile': width === 'custom' ? `${customWidth}%` : width === 'fill' ? '100%' : 'fit-content',
+    '--width-mobile': width === 'custom' ? `${customWidth}%` : (width === '100%' || (width as string) === 'fill') ? '100%' : 'fit-content',
     
     // Content settings - Desktop
     '--content-direction-desktop': contentDirectionDesktop,
     '--content-alignment-desktop': contentAlignmentDesktop,
     '--content-alignment-cross-axis-desktop': contentAlignmentCrossAxisDesktop,
     '--gap-desktop': `${gapDesktop}px`,
-    '--width-desktop': widthDesktop === 'custom' ? `${customWidthDesktop}%` : widthDesktop === 'fill' ? '100%' : 'fit-content',
+    '--width-desktop': widthDesktop === 'custom' ? `${customWidthDesktop}%` : (widthDesktop === '100%' || (widthDesktop as string) === 'fill') ? '100%' : 'fit-content',
 
     // Background Media - Mobile
     '--background-image-mobile': backgroundMedia === 'image' && backgroundImageUrl ? `url(${backgroundImageUrl})` : 'none',

@@ -8,7 +8,7 @@ export default [
         title: 'Share layout settings across devices', 
         type: 'boolean', 
         initialValue: true,
-        group: 'layout'
+        group: 'styles'
     }),
     defineField({
         name: 'visibility',
@@ -20,7 +20,7 @@ export default [
           {title: 'Mobile only', value: 'hidden--desktop'},
           {title: 'Desktop only', value: 'hidden--mobile'},
         ]},
-        group: 'layout',
+        group: 'styles',
         components: {
           input: ButtonGroupInput
         }
@@ -35,11 +35,24 @@ export default [
           list: [
             {title: 'Fit content', value: 'fit-content'},
             {title: 'Fill (100%)', value: '100%'},
+            {title: 'Custom', value: 'custom'},
           ],
         },
-        group: 'layout',
+        group: 'styles',
         components: {
           input: ButtonGroupInput
+        }
+      }),
+      defineField({
+        name: 'custom_width',
+        title: 'Custom width',
+        type: 'number',
+        initialValue: 50,
+        options: {min: 0, max: 100, step: 1, unit: '%'},
+        hidden: ({parent}) => parent?.width !== 'custom',
+        group: 'styles',
+        components: {
+          input: SliderInput
         }
       }),
       defineField({
@@ -52,12 +65,25 @@ export default [
           list: [
             {title: 'Fit content', value: 'fit-content'},
             {title: 'Fill (100%)', value: '100%'},
+            {title: 'Custom', value: 'custom'},
           ],
         },
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout',
+        group: 'styles',
         components: {
           input: ButtonGroupInput
+        }
+      }),
+      defineField({
+        name: 'custom_width_desktop',
+        title: 'Custom width (Desktop)',
+        type: 'number',
+        initialValue: 50,
+        options: {min: 0, max: 100, step: 1, unit: '%'},
+        hidden: ({parent}) => parent?.shareLayoutSettings === true || parent?.width_desktop !== 'custom',
+        group: 'styles',
+        components: {
+          input: SliderInput
         }
       }),
       defineField({
@@ -72,7 +98,7 @@ export default [
             {title: 'None', value: 'none'},
           ],
         },
-        group: 'layout',
+        group: 'styles',
         components: {
           input: ButtonGroupInput
         }
@@ -90,31 +116,7 @@ export default [
           ],
         },
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout',
-        components: {
-          input: ButtonGroupInput
-        }
-      }),
-      defineField({
-        name: 'alignment',
-        title: 'Alignment',
-        type: 'string',
-        initialValue: 'left',
-        options: {list: ['left', 'center', 'right']},
-        hidden: ({parent}) => parent?.width !== '100%',
-        group: 'layout',
-        components: {
-          input: ButtonGroupInput
-        }
-      }),
-      defineField({
-        name: 'alignment_desktop',
-        title: 'Alignment (Desktop)',
-        type: 'string',
-        initialValue: 'left',
-        options: {list: ['left', 'center', 'right']},
-        hidden: ({parent}) => parent?.shareLayoutSettings === true || parent?.width_desktop !== '100%',
-        group: 'layout',
+        group: 'styles',
         components: {
           input: ButtonGroupInput
         }
@@ -125,7 +127,7 @@ export default [
         type: 'number',
         initialValue: 0,
         options: {min: 0, max: 50, step: 1},
-        group: 'layout',
+        group: 'styles',
         components: {
           input: SliderInput
         }
@@ -137,7 +139,7 @@ export default [
         initialValue: 0,
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
         options: {min: 0, max: 50, step: 1},
-        group: 'layout',
+        group: 'styles',
         components: {
           input: SliderInput
         }
@@ -148,7 +150,7 @@ export default [
         type: 'number',
         options: {min: 0, max: 100, step: 1},
         initialValue: 0,
-        group: 'layout',
+        group: 'styles',
         components: {
           input: SliderInput
         }
@@ -160,7 +162,7 @@ export default [
         options: {min: 0, max: 100, step: 1},
         initialValue: 0,
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout',
+        group: 'styles',
         components: {
           input: SliderInput
         }
@@ -171,7 +173,7 @@ export default [
         type: 'number',
         options: {min: 0, max: 100, step: 1},
         initialValue: 0,
-        group: 'layout',
+        group: 'styles',
         components: {
           input: SliderInput
         }
@@ -183,7 +185,7 @@ export default [
         options: {min: 0, max: 100, step: 1},
         initialValue: 0,
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout',
+        group: 'styles',
         components: {
           input: SliderInput
         }
@@ -194,7 +196,7 @@ export default [
         type: 'number',
         options: {min: 0, max: 100, step: 1},
         initialValue: 0,
-        group: 'layout',
+        group: 'styles',
         components: {
           input: SliderInput
         }
@@ -206,7 +208,7 @@ export default [
         options: {min: 0, max: 100, step: 1},
         initialValue: 0,
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout',
+        group: 'styles',
         components: {
           input: SliderInput
         }
@@ -217,7 +219,7 @@ export default [
         type: 'number',
         options: {min: 0, max: 100, step: 1},
         initialValue: 0,
-        group: 'layout',
+        group: 'styles',
         components: {
           input: SliderInput
         }
@@ -229,9 +231,10 @@ export default [
         options: {min: 0, max: 100, step: 1},
         initialValue: 0,
         hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout',
+        group: 'styles',
         components: {
           input: SliderInput
         }
       }),
 ]
+

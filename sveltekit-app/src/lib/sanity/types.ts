@@ -167,11 +167,13 @@ export interface TextBlock {
     shareLayoutSettings?: boolean
     visibility?: 'visible-all' | 'hidden--desktop' | 'hidden--mobile'
     // Layout - Mobile (base)
-    width?: 'fit-content' | '100%'
+    width?: 'fit-content' | '100%' | 'custom'
+    custom_width?: number
     maxWidth?: 'narrow' | 'normal' | 'none'
     alignment?: 'left' | 'center' | 'right'
     // Layout - Desktop
-    width_desktop?: 'fit-content' | '100%'
+    width_desktop?: 'fit-content' | '100%' | 'custom'
+    custom_width_desktop?: number
     maxWidth_desktop?: 'narrow' | 'normal' | 'none'
     alignment_desktop?: 'left' | 'center' | 'right'
     // Typography
@@ -219,11 +221,13 @@ export interface ImageBlock {
     shareLayoutSettings?: boolean
     visibility?: 'visible-all' | 'hidden--desktop' | 'hidden--mobile'
     // Layout - Mobile (base)
-    width?: 'fit-content' | '100%'
+    width?: 'fit-content' | '100%' | 'custom'
+    custom_width?: number
     maxWidth?: 'narrow' | 'normal' | 'none'
     alignment?: 'left' | 'center' | 'right'
     // Layout - Desktop
-    width_desktop?: 'fit-content' | '100%'
+    width_desktop?: 'fit-content' | '100%' | 'custom'
+    custom_width_desktop?: number
     maxWidth_desktop?: 'narrow' | 'normal' | 'none'
     alignment_desktop?: 'left' | 'center' | 'right'
     // Corner radius - Mobile
@@ -262,11 +266,6 @@ export interface GroupBlock {
     // Gap
     gap?: number
     gap_desktop?: number
-    // Width
-    width?: 'fit-content' | 'fill' | 'custom'
-    customWidth?: number
-    width_desktop?: 'fit-content' | 'fill' | 'custom'
-    customWidth_desktop?: number
     // Background Media
     backgroundMedia?: 'none' | 'image' | 'video'
     backgroundMedia_desktop?: 'none' | 'image' | 'video'
@@ -289,8 +288,16 @@ export interface GroupBlock {
     // Link
     link?: string
     openInNewTab?: boolean
-    // Layout settings
+    // Layout settings (from sharedStyleFields)
     shareLayoutSettings?: boolean
+    // Width - Mobile
+    width?: 'fit-content' | '100%' | 'custom'
+    custom_width?: number
+    maxWidth?: 'narrow' | 'normal' | 'none'
+    // Width - Desktop
+    width_desktop?: 'fit-content' | '100%' | 'custom'
+    custom_width_desktop?: number
+    maxWidth_desktop?: 'narrow' | 'normal' | 'none'
     // Corner radius - Mobile
     cornerRadius?: number
     // Corner radius - Desktop
@@ -309,44 +316,57 @@ export interface GroupBlock {
 
 export interface SectionModule extends PagebuilderModule {
     _type: 'section'
-    contentDirection?: ContentDirection
-    verticalOnMobile?: boolean
-    shareLayoutSettings?: boolean
-    horizontalAlignment?: FlexAlignment
-    horizontalAlignmentMobile?: FlexAlignment
-    verticalAlignment?: 'flex-start' | 'center' | 'flex-end'
-    verticalAlignmentMobile?: 'flex-start' | 'center' | 'flex-end'
-    alignBaseline?: boolean
-    horizontalAlignmentColumn?: 'flex-start' | 'center' | 'flex-end'
-    horizontalAlignmentColumnMobile?: 'flex-start' | 'center' | 'flex-end'
-    verticalAlignmentColumn?: 'flex-start' | 'center' | 'flex-end' | 'space-between'
-    verticalAlignmentColumnMobile?: 'flex-start' | 'center' | 'flex-end' | 'space-between'
+    _id: string
+    blocks: (GroupBlock | TextBlock | ImageBlock)[]
+    // Content settings
+    shareContentSettings?: boolean
+    // Content Direction
+    contentDirection?: 'row' | 'column'
+    contentDirection_desktop?: 'row' | 'column'
+    // Content Alignment
+    contentAlignment?: 'flex-start' | 'center' | 'flex-end' | 'space-between'
+    contentAlignment_desktop?: 'flex-start' | 'center' | 'flex-end' | 'space-between'
+    // Cross-axis Alignment
+    contentAlignmentCrossAxis?: 'start' | 'center' | 'end'
+    contentAlignmentCrossAxis_desktop?: 'start' | 'center' | 'end'
+    // Gap
     gap?: number
-    gapMobile?: number
+    gap_desktop?: number
+    // Section Width
     sectionWidth?: 'page-width' | 'full-width'
-    sectionHeight?: 'auto' | 'small' | 'medium' | 'large' | 'full-screen' | 'custom'
-    sectionHeightCustom?: number
-    colorScheme?: '' | 'scheme-1' | 'scheme-2' | 'scheme-3' | 'scheme-4' | 'scheme-5'
+    // Background Media
     backgroundMedia?: 'none' | 'image' | 'video'
-    backgroundMediaMobile?: 'none' | 'image' | 'video'
+    backgroundMedia_desktop?: 'none' | 'image' | 'video'
+    // Video - Mobile
     video?: any
     videoPosition?: 'cover' | 'contain'
+    // Video - Desktop
+    video_desktop?: any
+    videoPosition_desktop?: 'cover' | 'contain'
+    // Image - Mobile
     backgroundImage?: any
     backgroundImagePosition?: 'cover' | 'fit'
-    border?: 'none' | 'solid'
-    borderWidth?: number
-    borderOpacity?: number
-    borderRadius?: number
-    borderRadiusMobile?: number
-    shareAppearanceSettings?: boolean
+    // Image - Desktop
+    backgroundImage_desktop?: any
+    backgroundImagePosition_desktop?: 'cover' | 'fit'
+    // Background Color & Overlay
+    backgroundColor?: Color
     toggleOverlay?: boolean
     overlayColor?: Color
-    overlayStyle?: 'solid' | 'gradient'
-    gradientDirection?: 'to top' | 'to bottom'
+    // Layout settings
+    shareLayoutSettings?: boolean
+    // Corner radius - Mobile
+    cornerRadius?: number
+    // Corner radius - Desktop
+    cornerRadius_desktop?: number
+    // Padding - Mobile
     paddingBlockStart?: number
     paddingBlockEnd?: number
-    sharePaddingSettings?: boolean
-    paddingBlockStartMobile?: number
-    paddingBlockEndMobile?: number
-    blocks: (GroupBlock | TextBlock | ImageBlock)[]
+    paddingInlineStart?: number
+    paddingInlineEnd?: number
+    // Padding - Desktop
+    paddingBlockStart_desktop?: number
+    paddingBlockEnd_desktop?: number
+    paddingInlineStart_desktop?: number
+    paddingInlineEnd_desktop?: number
 }

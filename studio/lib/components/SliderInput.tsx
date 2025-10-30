@@ -5,7 +5,8 @@ import type { NumberInputProps } from 'sanity'
 
 export function SliderInput(props: NumberInputProps) {
   const { value, onChange, elementProps, validation } = props
-  const { min = 0, max = 100, step = 1 } = props.schemaType.options || {}
+  const { min = 0, max = 100, step = 1, unit = 'px' } = props.schemaType.options || {}
+  const initialValue = props.schemaType.initialValue as number | undefined
   const theme = useTheme()
   const isDark = theme.sanity.color.dark
 
@@ -18,7 +19,10 @@ export function SliderInput(props: NumberInputProps) {
   )
 
   const hasError = validation.some((v) => v.level === 'error')
-  const percentage = ((value ?? min) / max) * 100
+  const currentValue = value ?? initialValue ?? min
+  // Calculate percentage correctly for ranges that don't start at 0
+  const range = max - min
+  const percentage = ((currentValue - min) / range) * 100
 
   // Theme-aware colors
   const colors = {
@@ -48,7 +52,7 @@ export function SliderInput(props: NumberInputProps) {
             min={min}
             max={max}
             step={step}
-            value={value ?? min}
+            value={currentValue}
             onChange={handleChange}
             style={{
               width: '100%',
@@ -119,7 +123,7 @@ export function SliderInput(props: NumberInputProps) {
           }}
         >
           <Text size={1} weight="semibold" style={{ color: colors.valueText }}>
-            {value ?? min}px
+            {currentValue}{unit}
           </Text>
         </Box>
       </Flex>

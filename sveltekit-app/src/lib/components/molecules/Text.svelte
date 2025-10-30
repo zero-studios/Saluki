@@ -12,6 +12,13 @@
   const shareLayoutSettings = $derived(settings?.shareLayoutSettings ?? true);
   const width = $derived(settings?.width ?? 'fit-content');
   const widthDesktop = $derived(shareLayoutSettings ? width : (settings?.width_desktop ?? width));
+  
+  // Custom width handling
+  const customWidth = $derived(settings?.custom_width);
+  const customWidthDesktop = $derived(shareLayoutSettings ? customWidth : (settings?.custom_width_desktop ?? customWidth));
+  const finalWidth = $derived(width === 'custom' && customWidth !== undefined ? `${customWidth}%` : width);
+  const finalWidthDesktop = $derived(widthDesktop === 'custom' && customWidthDesktop !== undefined ? `${customWidthDesktop}%` : widthDesktop);
+  
   const maxWidth = $derived(settings?.maxWidth ?? 'normal');
   const maxWidthDesktop = $derived(shareLayoutSettings ? maxWidth : (settings?.maxWidth_desktop ?? maxWidth));
   const alignment = $derived(settings?.alignment ?? 'left');
@@ -46,14 +53,14 @@
 
   const styleVars = $derived({
     // Layout - Mobile (base)
-    '--width-mobile': width,
+    '--width-mobile': finalWidth,
     '--max-width-mobile': `var(--max-width--${typePreset === 'rte' ? 'body' : 'heading'}-${maxWidth})`,
-    '--text-align-mobile': width === '100%' ? alignment : 'left',
+    '--text-align-mobile': finalWidth === '100%' ? alignment : 'left',
     
     // Layout - Desktop
-    '--width-desktop': widthDesktop,
+    '--width-desktop': finalWidthDesktop,
     '--max-width-desktop': `var(--max-width--${typePreset === 'rte' ? 'body' : 'heading'}-${maxWidthDesktop})`,
-    '--text-align-desktop': widthDesktop === '100%' ? alignmentDesktop : 'left',
+    '--text-align-desktop': finalWidthDesktop === '100%' ? alignmentDesktop : 'left',
 
     // Padding - Mobile
     '--padding-block-start-mobile': `${paddingBlockStart}px`,

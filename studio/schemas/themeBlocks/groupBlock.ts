@@ -1,4 +1,7 @@
 import {defineField, defineType} from 'sanity'
+import sharedStyleFields from './_sharedStyleFields'
+import { SliderInput } from '../../lib/components/SliderInput'
+import { ButtonGroupInput } from '../../lib/components/ButtonGroupInput'
 
 export default defineType({
     name: 'groupBlock',
@@ -6,7 +9,7 @@ export default defineType({
     type: 'object',
     groups: [
       {name: 'content', title: 'Content', default: true},
-      {name: 'layout', title: 'Layout'},
+      {name: 'styles', title: 'Styles'},
     ],
     fields: [
       defineField({
@@ -35,19 +38,6 @@ export default defineType({
         group: 'content'
       }),
 
-      defineField({
-          name: 'visibility',
-          title: 'Visibility',
-          type: 'string',
-          initialValue: 'visible-all',
-          options: {list: [
-            {title: 'All devices', value: 'visible-all'},
-            {title: 'Mobile only', value: 'hidden--desktop'},
-            {title: 'Desktop only', value: 'hidden--mobile'},
-          ]},
-          group: 'content'
-      }),
-
       // Content Direction
       defineField({
         name: 'contentDirection',
@@ -61,7 +51,10 @@ export default defineType({
             {title: 'Horizontal', value: 'row'},
           ]
         },
-        group: 'content'
+        group: 'content',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'contentDirection_desktop',
@@ -76,7 +69,10 @@ export default defineType({
           ]
         },
         hidden: ({parent}) => parent?.shareContentSettings === true,
-        group: 'content'
+        group: 'content',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
 
       // Content Alignment
@@ -94,7 +90,10 @@ export default defineType({
             {title: 'Space between', value: 'space-between'},
           ]
         },
-        group: 'content'
+        group: 'content',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'contentAlignment_desktop',
@@ -111,7 +110,10 @@ export default defineType({
           ]
         },
         hidden: ({parent}) => parent?.shareContentSettings === true,
-        group: 'content'
+        group: 'content',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
 
       // Cross-axis Alignment
@@ -128,7 +130,10 @@ export default defineType({
             {title: 'End', value: 'end'},
           ]
         },
-        group: 'content'
+        group: 'content',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'contentAlignmentCrossAxis_desktop',
@@ -144,7 +149,10 @@ export default defineType({
           ]
         },
         hidden: ({parent}) => parent?.shareContentSettings === true,
-        group: 'content'
+        group: 'content',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
 
       // Gap
@@ -152,63 +160,24 @@ export default defineType({
         name: 'gap',
         title: 'Gap',
         type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        options: {min: 0, max: 100, step: 1},
         initialValue: 12,
-        group: 'content'
+        group: 'content',
+        components: {
+          input: SliderInput
+        }
       }),
       defineField({
         name: 'gap_desktop',
         title: 'Gap (Desktop)',
         type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
+        options: {min: 0, max: 100, step: 1},
         initialValue: 12,
         hidden: ({parent}) => parent?.shareContentSettings === true,
-        group: 'content'
-      }),
-
-      // Width
-      defineField({
-        name: 'width',
-        title: 'Width',
-        type: 'string',
-        initialValue: 'fill',
-        options: {list: [
-          {title: 'Fit content', value: 'fit-content'},
-          {title: 'Fill', value: 'fill'},
-          {title: 'Custom', value: 'custom'},
-        ]},
-        group: 'content'
-      }),
-      defineField({
-        name: 'customWidth',
-        title: 'Custom width (%)',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 100,
-        hidden: ({parent}) => parent?.width !== 'custom',
-        group: 'content'
-      }),
-      defineField({
-        name: 'width_desktop',
-        title: 'Width (Desktop)',
-        type: 'string',
-        initialValue: 'fill',
-        options: {list: [
-          {title: 'Fit content', value: 'fit-content'},
-          {title: 'Fill', value: 'fill'},
-          {title: 'Custom', value: 'custom'},
-        ]},
-        hidden: ({parent}) => parent?.shareContentSettings === true,
-        group: 'content'
-      }),
-      defineField({
-        name: 'customWidth_desktop',
-        title: 'Custom width (Desktop) (%)',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 100,
-        hidden: ({parent}) => parent?.shareContentSettings === true || parent?.width_desktop !== 'custom',
-        group: 'content'
+        group: 'content',
+        components: {
+          input: SliderInput
+        }
       }),
 
       // Background Media
@@ -222,7 +191,10 @@ export default defineType({
           {title: 'Image', value: 'image'},
           {title: 'Video', value: 'video'},
         ]},
-        group: 'content'
+        group: 'content',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'backgroundMedia_desktop',
@@ -235,7 +207,10 @@ export default defineType({
           {title: 'Video', value: 'video'},
         ]},
         hidden: ({parent}) => parent?.shareContentSettings === true,
-        group: 'content'
+        group: 'content',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       
       // Video - Mobile
@@ -256,7 +231,10 @@ export default defineType({
           {title: 'Contain', value: 'contain'},
         ]},
         hidden: ({parent}) => parent?.backgroundMedia !== 'video',
-        group: 'content'
+        group: 'content',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
 
       // Video - Desktop
@@ -277,7 +255,10 @@ export default defineType({
           {title: 'Contain', value: 'contain'},
         ]},
         hidden: ({parent}) => parent?.shareContentSettings === true || parent?.backgroundMedia_desktop !== 'video',
-        group: 'content'
+        group: 'content',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
 
       // Image - Mobile
@@ -298,7 +279,10 @@ export default defineType({
           {title: 'Fit', value: 'fit'},
         ]},
         hidden: ({parent}) => parent?.backgroundMedia !== 'image',
-        group: 'content'
+        group: 'content',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
 
       // Image - Desktop
@@ -319,7 +303,10 @@ export default defineType({
           {title: 'Fit', value: 'fit'},
         ]},
         hidden: ({parent}) => parent?.shareContentSettings === true || parent?.backgroundMedia_desktop !== 'image',
-        group: 'content'
+        group: 'content',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
 
       // Background Color & Overlay
@@ -359,99 +346,8 @@ export default defineType({
         group: 'content'
       }),
 
-      // Layout fields (from sharedLayoutFields, but manually added)
-      defineField({
-        name: 'shareLayoutSettings', 
-        title: 'Share layout settings across devices', 
-        type: 'boolean', 
-        initialValue: true,
-        group: 'layout'
-      }),
-      defineField({
-        name: 'cornerRadius',
-        title: 'Corner radius',
-        type: 'number',
-        initialValue: 0,
-        options: {layout: 'slider', min: 0, max: 50, step: 1},
-        group: 'layout'
-      }),
-      defineField({
-        name: 'cornerRadius_desktop',
-        title: 'Corner radius (Desktop)',
-        type: 'number',
-        initialValue: 0,
-        hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        options: {layout: 'slider', min: 0, max: 50, step: 1},
-        group: 'layout'
-      }),
-      defineField({
-        name: 'paddingBlockStart',
-        title: 'Padding top',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-        group: 'layout'
-      }),
-      defineField({
-        name: 'paddingBlockStart_desktop',
-        title: 'Padding top (Desktop)',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-        hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout'
-      }),
-      defineField({
-        name: 'paddingBlockEnd',
-        title: 'Padding bottom',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-        group: 'layout'
-      }),
-      defineField({
-        name: 'paddingBlockEnd_desktop',
-        title: 'Padding bottom (Desktop)',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-        hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout'
-      }),
-      defineField({
-        name: 'paddingInlineStart',
-        title: 'Padding left',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-        group: 'layout'
-      }),
-      defineField({
-        name: 'paddingInlineStart_desktop',
-        title: 'Padding left (Desktop)',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-        hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout'
-      }),
-      defineField({
-        name: 'paddingInlineEnd',
-        title: 'Padding right',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-        group: 'layout'
-      }),
-      defineField({
-        name: 'paddingInlineEnd_desktop',
-        title: 'Padding right (Desktop)',
-        type: 'number',
-        options: {layout: 'slider', min: 0, max: 100, step: 1},
-        initialValue: 0,
-        hidden: ({parent}) => parent?.shareLayoutSettings === true,
-        group: 'layout'
-      }),
+      // Style fields from sharedStyleFields
+      ...sharedStyleFields,
     ],
     preview: {
       select: {title: 'title'},

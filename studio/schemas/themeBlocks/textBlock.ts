@@ -1,5 +1,6 @@
 import {defineField, defineType} from 'sanity'
-import sharedLayoutFields from './_sharedLayoutFields'
+import sharedStyleFields from './_sharedStyleFields'
+import { ButtonGroupInput } from '../../lib/components/ButtonGroupInput'
 
 export default defineType({
     name: 'textBlock',
@@ -7,7 +8,7 @@ export default defineType({
     type: 'object',
     groups: [
         {name: 'content', title: 'Content', default: true},
-        {name: 'layout', title: 'Layout'},
+        {name: 'styles', title: 'Styles'},
     ],
     fields: [
       defineField({
@@ -61,6 +62,9 @@ export default defineType({
           ],
         },
         hidden: ({parent}) => parent?.typePreset !== 'custom',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'fontSize',
@@ -140,6 +144,9 @@ export default defineType({
           ],
         },
         hidden: ({parent}) => parent?.typePreset !== 'custom',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'letterSpacing',
@@ -155,6 +162,9 @@ export default defineType({
           ],
         },
         hidden: ({parent}) => parent?.typePreset !== 'custom',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'textTransform',
@@ -167,6 +177,9 @@ export default defineType({
           {title: 'Uppercase', value: 'uppercase'},
         ]},
         hidden: ({parent}) => parent?.typePreset !== 'custom',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'textWrap',
@@ -179,6 +192,9 @@ export default defineType({
           {title: 'No wrap', value: 'nowrap'},
         ]},
         hidden: ({parent}) => parent?.typePreset !== 'custom',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
   
       defineField({
@@ -193,6 +209,9 @@ export default defineType({
           {title: 'Link', value: 'var(--color-primary)'},
         ]},
         hidden: ({parent}) => parent?.typePreset === 'rte',
+        components: {
+          input: ButtonGroupInput
+        }
       }),
       defineField({
         name: 'background',
@@ -208,7 +227,33 @@ export default defineType({
         group: 'content',
         hidden: ({parent}) => !parent?.background,
       }),
-      ...sharedLayoutFields,
+      ...sharedStyleFields,
+      
+      // Alignment fields (specific to textBlock)
+      defineField({
+        name: 'alignment',
+        title: 'Alignment',
+        type: 'string',
+        initialValue: 'left',
+        options: {list: ['left', 'center', 'right']},
+        hidden: ({parent}) => parent?.width !== '100%',
+        group: 'styles',
+        components: {
+          input: ButtonGroupInput
+        }
+      }),
+      defineField({
+        name: 'alignment_desktop',
+        title: 'Alignment (Desktop)',
+        type: 'string',
+        initialValue: 'left',
+        options: {list: ['left', 'center', 'right']},
+        hidden: ({parent}) => parent?.shareLayoutSettings === true || parent?.width_desktop !== '100%',
+        group: 'styles',
+        components: {
+          input: ButtonGroupInput
+        }
+      }),
     ],
     preview: {
       select: { title: 'title'},
