@@ -334,6 +334,9 @@ export interface SectionModule extends PagebuilderModule {
     gap_desktop?: number
     // Section Width
     sectionWidth?: 'page-width' | 'full-width'
+    // Section Height
+    height?: 'auto' | 'fullscreen' | 'square' | 'landscape' | 'portrait'
+    height_desktop?: 'auto' | 'fullscreen' | 'square' | 'landscape' | 'portrait'
     // Background Media
     backgroundMedia?: 'none' | 'image' | 'video'
     backgroundMedia_desktop?: 'none' | 'image' | 'video'

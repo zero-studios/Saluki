@@ -1,4 +1,5 @@
 import twoColumn from './twoColumn.json'
+import hero from './hero.json'
 
 /**
  * Transforms a raw Sanity document into an initial value template
@@ -38,4 +39,5 @@ export default [
     'section-two-column',
     'Two Column Section'
   ),
+  createTemplateFromDocument(hero, 'section-hero', 'Hero Section')
 ]

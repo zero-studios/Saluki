@@ -196,6 +196,43 @@ export default defineType({
       }
     }),
 
+    // Section Height
+    defineField({
+      name: 'height',
+      title: 'Section height',
+      type: 'string',
+      initialValue: 'auto',
+      options: {list: [
+        {title: 'Auto', value: 'auto'},
+        {title: 'Fullscreen', value: 'fullscreen'},
+        {title: 'Square', value: 'square'},
+        {title: 'Landscape', value: 'landscape'},
+        {title: 'Portrait', value: 'portrait'},
+      ]},
+      group: 'content',
+      components: {
+        input: ButtonGroupInput
+      }
+    }),
+    defineField({
+      name: 'height_desktop',
+      title: 'Section height (Desktop)',
+      type: 'string',
+      initialValue: 'auto',
+      options: {list: [
+        {title: 'Auto', value: 'auto'},
+        {title: 'Fullscreen', value: 'fullscreen'},
+        {title: 'Square', value: 'square'},
+        {title: 'Landscape', value: 'landscape'},
+        {title: 'Portrait', value: 'portrait'},
+      ]},
+      hidden: ({document}) => document?.shareContentSettings === true,
+      group: 'content',
+      components: {
+        input: ButtonGroupInput
+      }
+    }),
+
     // Background Media
     defineField({
       name: 'backgroundMedia',

@@ -4,6 +4,8 @@
   import { stegaClean } from '@sanity/client/stega';
   import { createDataAttribute } from '@sanity/visual-editing'
   import { urlFor } from '$lib/sanity/image';
+  import VercelImage from '$lib/components/atoms/VercelImage.svelte';
+  import Video from '$lib/components/atoms/Video.svelte';
   
   let { sanity_obj }: { sanity_obj: SectionModule } = $props();
 
@@ -36,6 +38,10 @@
   
   // Section Width
   const sectionWidth = $derived(settings?.sectionWidth ?? 'page-width');
+  
+  // Section Height
+  const height = $derived(settings?.height ?? 'auto');
+  const heightDesktop = $derived(shareContentSettings ? height : (settings?.height_desktop ?? height));
   
   // Background Media
   const backgroundMedia = $derived(settings?.backgroundMedia ?? 'none');
@@ -75,6 +81,35 @@
   const cornerRadius = $derived(settings?.cornerRadius ?? 0);
   const cornerRadiusDesktop = $derived(shareLayoutSettings ? cornerRadius : (settings?.cornerRadius_desktop ?? cornerRadius));
 
+  // Helper function to get height value
+  function getHeightValue(heightValue: string) {
+    switch (heightValue) {
+      case 'fullscreen':
+        return '100vh';
+      case 'square':
+        return 'auto'; // Will use aspect-ratio
+      case 'landscape':
+        return 'auto'; // Will use aspect-ratio
+      case 'portrait':
+        return 'auto'; // Will use aspect-ratio
+      default:
+        return 'auto';
+    }
+  }
+
+  function getAspectRatio(heightValue: string) {
+    switch (heightValue) {
+      case 'square':
+        return '1 / 1';
+      case 'landscape':
+        return '16 / 9';
+      case 'portrait':
+        return '9 / 16';
+      default:
+        return 'auto';
+    }
+  }
+
   const styleVars = $derived({
     // Content settings - Mobile
     '--content-direction-mobile': contentDirection,
@@ -88,13 +123,19 @@
     '--content-alignment-cross-axis-desktop': contentAlignmentCrossAxisDesktop,
     '--gap-desktop': `${gapDesktop}px`,
 
+    // Height - Mobile
+    '--section-height-mobile': getHeightValue(height),
+    '--section-aspect-ratio-mobile': getAspectRatio(height),
+
+    // Height - Desktop
+    '--section-height-desktop': getHeightValue(heightDesktop),
+    '--section-aspect-ratio-desktop': getAspectRatio(heightDesktop),
+
     // Background Media - Mobile
-    '--background-image-mobile': backgroundMedia === 'image' && backgroundImageUrl ? `url(${backgroundImageUrl})` : 'none',
     '--background-image-position-mobile': backgroundImagePosition === 'cover' ? 'cover' : 'contain',
     '--video-object-fit-mobile': videoPosition,
 
     // Background Media - Desktop
-    '--background-image-desktop': backgroundMediaDesktop === 'image' && backgroundImageUrlDesktop ? `url(${backgroundImageUrlDesktop})` : 'none',
     '--background-image-position-desktop': backgroundImagePositionDesktop === 'cover' ? 'cover' : 'contain',
     '--video-object-fit-desktop': videoPositionDesktop,
 
@@ -105,7 +146,11 @@
 
     // Overlay
     ...(settings?.toggleOverlay && settings?.overlayColor
-      ? {'--section-overlay-color': settings?.overlayColor?.hex || 'rgba(0, 0, 0, 0.5)'}
+      ? {
+          '--section-overlay-color': settings?.overlayColor?.rgb?.a !== undefined
+            ? `rgba(${settings.overlayColor.rgb.r}, ${settings.overlayColor.rgb.g}, ${settings.overlayColor.rgb.b}, ${settings.overlayColor.rgb.a})`
+            : (settings?.overlayColor?.hex || 'rgba(0, 0, 0, 0.5)')
+        }
       : {}),
 
     // Padding - Mobile
@@ -139,20 +184,34 @@
 >
   <div class="section-wrapper__media-wrapper">
     {#if backgroundMedia === 'image' && backgroundImageUrl}
-      <div class="section-wrapper__background-image section-wrapper__background-image--mobile"></div>
+      <VercelImage 
+        src={backgroundImageUrl}
+        alt=""
+        loading="eager"
+        aria_hidden={true}
+        classes="section-wrapper__background-image section-wrapper__background-image--mobile"
+      />
     {/if}
     {#if backgroundMediaDesktop === 'image' && backgroundImageUrlDesktop && !shareContentSettings}
-      <div class="section-wrapper__background-image section-wrapper__background-image--desktop"></div>
+      <VercelImage 
+        src={backgroundImageUrlDesktop}
+        alt=""
+        loading="eager"
+        aria_hidden={true}
+        classes="section-wrapper__background-image section-wrapper__background-image--desktop"
+      />
     {/if}
     {#if backgroundMedia === 'video' && settings?.video}
-      <video class="section-wrapper__video section-wrapper__video--mobile" autoplay loop muted playsinline>
-        <source src={settings.video.asset?.url} type="video/mp4" />
-      </video>
+      <Video 
+        video={{ url: settings.video.asset?.url || '' }}
+        classes="section-wrapper__video section-wrapper__video--mobile"
+      />
     {/if}
     {#if backgroundMediaDesktop === 'video' && settings?.video_desktop && !shareContentSettings}
-      <video class="section-wrapper__video section-wrapper__video--desktop" autoplay loop muted playsinline>
-        <source src={settings.video_desktop.asset?.url} type="video/mp4" />
-      </video>
+      <Video 
+        video={{ url: settings.video_desktop.asset?.url || '' }}
+        classes="section-wrapper__video section-wrapper__video--desktop"
+      />
     {/if}
     {#if settings?.toggleOverlay}
       <div class="section-wrapper__overlay"></div>
@@ -180,6 +239,8 @@
     padding-inline-end: var(--padding-inline-end-mobile, 0);
     border-radius: var(--section-corner-radius-mobile, 0);
     overflow: hidden;
+    height: var(--section-height-mobile, auto);
+    aspect-ratio: var(--section-aspect-ratio-mobile, auto);
   }
 
   :global(.section-wrapper--background) {
@@ -195,18 +256,17 @@
   :global(.section-wrapper__background-image) {
     position: absolute;
     inset: 0;
-    background-size: var(--background-image-position-mobile);
-    background-position: center;
-    background-repeat: no-repeat;
+    width: 100%;
+    height: 100%;
+    object-fit: var(--background-image-position-mobile);
+    object-position: center;
   }
 
   :global(.section-wrapper__background-image--mobile) {
-    background-image: var(--background-image-mobile);
     display: block;
   }
 
   :global(.section-wrapper__background-image--desktop) {
-    background-image: var(--background-image-desktop);
     display: none;
   }
 
@@ -237,6 +297,7 @@
     position: relative;
     z-index: 2;
     display: flex;
+    height: 100%;
     flex-direction: var(--content-direction-mobile);
     justify-content: var(--content-alignment-mobile);
     align-items: var(--content-alignment-cross-axis-mobile);
@@ -260,10 +321,12 @@
       padding-inline-start: var(--padding-inline-start-desktop, 0);
       padding-inline-end: var(--padding-inline-end-desktop, 0);
       border-radius: var(--section-corner-radius-desktop, 0);
+      height: var(--section-height-desktop, auto);
+      aspect-ratio: var(--section-aspect-ratio-desktop, auto);
     }
 
     :global(.section-wrapper__background-image) {
-      background-size: var(--background-image-position-desktop);
+      object-fit: var(--background-image-position-desktop);
     }
 
     :global(.section-wrapper__background-image--mobile) {

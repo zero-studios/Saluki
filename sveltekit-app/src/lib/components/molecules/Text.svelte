@@ -130,8 +130,8 @@
   }
   
   :global(.text-block > *){
-    width: var(--width-mobile);
-    max-width: var(--max-width-mobile, 100%);
+    /* width: var(--width-mobile);
+    max-width: var(--max-width-mobile, 100%); */
     text-align: var(--text-align-mobile, left);
     text-wrap: var(--text-wrap, pretty);
   }
@@ -179,8 +179,8 @@
     }
 
     :global(.text-block > *){
-      width: var(--width-desktop);
-      max-width: var(--max-width-desktop, 100%);
+      /* width: var(--width-desktop);
+      max-width: var(--max-width-desktop, 100%); */
       text-align: var(--text-align-desktop, left);
     }
 

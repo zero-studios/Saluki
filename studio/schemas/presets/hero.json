@@ -1,0 +1,288 @@
+{
+    "_createdAt": "2025-10-30T04:06:29Z",
+    "_id": "ef449e1c-7435-483f-ac1c-4daf4f9dbe33",
+    "_rev": "ailKrc8YOghnxmvns3p9Q7",
+    "_system": {
+      "base": {
+        "id": "ef449e1c-7435-483f-ac1c-4daf4f9dbe33",
+        "rev": "ailKrc8YOghnxmvns3nSkD"
+      }
+    },
+    "_type": "section",
+    "_updatedAt": "2025-10-30T13:44:09Z",
+    "backgroundImage": {
+      "_type": "image",
+      "asset": {
+        "_ref": "image-834d0ec3a7d78edd041c28e6ac5eca3e31f2a631-2900x2180-jpg",
+        "_type": "reference"
+      }
+    },
+    "backgroundImagePosition": "cover",
+    "backgroundImagePosition_desktop": "cover",
+    "backgroundMedia": "image",
+    "backgroundMedia_desktop": "image",
+    "blocks": [
+      {
+        "_key": "f99ab7a033b9",
+        "_type": "textBlock",
+        "alignment": "left",
+        "alignment_desktop": "left",
+        "background": true,
+        "backgroundColor": {
+          "_type": "color",
+          "alpha": 1,
+          "hex": "#c5b0d5",
+          "hsl": {
+            "_type": "hslaColor",
+            "a": 1,
+            "h": 273.3998893805309,
+            "l": 0.7631,
+            "s": 0.3095000000000002
+          },
+          "hsv": {
+            "_type": "hsvaColor",
+            "a": 1,
+            "h": 273.3998893805309,
+            "s": 0.1753198196768361,
+            "v": 0.83642055
+          },
+          "rgb": {
+            "_type": "rgbaColor",
+            "a": 1,
+            "b": 213,
+            "g": 176,
+            "r": 197
+          }
+        },
+        "color": "var(--color-foreground)",
+        "cornerRadius": 10,
+        "cornerRadius_desktop": 10,
+        "custom_width": 80,
+        "custom_width_desktop": 40,
+        "fontSize": "1rem",
+        "fontSizeMobile": "1rem",
+        "letterSpacing": "normal",
+        "lineHeight": "normal",
+        "maxWidth": "normal",
+        "maxWidth_desktop": "normal",
+        "paddingBlockEnd": 10,
+        "paddingBlockEnd_desktop": 20,
+        "paddingBlockStart": 10,
+        "paddingBlockStart_desktop": 20,
+        "paddingInlineEnd": 10,
+        "paddingInlineEnd_desktop": 20,
+        "paddingInlineStart": 10,
+        "paddingInlineStart_desktop": 20,
+        "shareLayoutSettings": false,
+        "text": [
+          {
+            "_key": "2d7c14253945",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "5a7a63a19b63",
+                "_type": "span",
+                "marks": [],
+                "text": "The lake stretches 1,200 km (750 mi) from north to south, with an average width of 320 km (200 mi). Its gross coverage is 386,400 km2 (149,200 sq mi) and the surface is about 27 m (89 ft) below "
+              },
+              {
+                "_key": "54b069613d58",
+                "_type": "span",
+                "marks": [
+                  "096f82f98664"
+                ],
+                "text": "sea level"
+              },
+              {
+                "_key": "132b38657c37",
+                "_type": "span",
+                "marks": [],
+                "text": ". Its main freshwater "
+              },
+              {
+                "_key": "58f7978c78d7",
+                "_type": "span",
+                "marks": [
+                  "4e5ca225fd00"
+                ],
+                "text": "inflow"
+              },
+              {
+                "_key": "41d0e36291c5",
+                "_type": "span",
+                "marks": [],
+                "text": ", Europe's longest river, the "
+              },
+              {
+                "_key": "e1c0f644832a",
+                "_type": "span",
+                "marks": [
+                  "5964125ff866"
+                ],
+                "text": "Volga"
+              },
+              {
+                "_key": "a08caa2ddbc7",
+                "_type": "span",
+                "marks": [],
+                "text": ", enters at the shallow north end. Two deep basins form its central and southern zones. These lead to horizontal differences in temperature, salinity, and ecology. The "
+              },
+              {
+                "_key": "074169527eb0",
+                "_type": "span",
+                "marks": [
+                  "aacb28b00e68"
+                ],
+                "text": "seabed"
+              },
+              {
+                "_key": "27a86747e92a",
+                "_type": "span",
+                "marks": [],
+                "text": " in the south reaches 1,023 m (3,356 ft) below sea level, which is the third-lowest natural non-oceanic "
+              },
+              {
+                "_key": "c8b31fa05f03",
+                "_type": "span",
+                "marks": [
+                  "07a40a516644"
+                ],
+                "text": "depression"
+              },
+              {
+                "_key": "605755fed0b9",
+                "_type": "span",
+                "marks": [],
+                "text": " on Earth after "
+              },
+              {
+                "_key": "b890dcb4420f",
+                "_type": "span",
+                "marks": [
+                  "19b3d877668b"
+                ],
+                "text": "Baikal"
+              },
+              {
+                "_key": "f212380c114b",
+                "_type": "span",
+                "marks": [],
+                "text": " and "
+              },
+              {
+                "_key": "5ab2105cc629",
+                "_type": "span",
+                "marks": [
+                  "3fd5268a31b6"
+                ],
+                "text": "Tanganyika"
+              },
+              {
+                "_key": "5422d7f4379d",
+                "_type": "span",
+                "marks": [],
+                "text": " lakes."
+              }
+            ],
+            "markDefs": [
+              {
+                "_key": "096f82f98664",
+                "_type": "link",
+                "href": "https://en.wikipedia.org/wiki/Sea_level"
+              },
+              {
+                "_key": "4e5ca225fd00",
+                "_type": "link",
+                "href": "https://en.wikipedia.org/wiki/Inflow_(hydrology)"
+              },
+              {
+                "_key": "5964125ff866",
+                "_type": "link",
+                "href": "https://en.wikipedia.org/wiki/Volga"
+              },
+              {
+                "_key": "aacb28b00e68",
+                "_type": "link",
+                "href": "https://en.wikipedia.org/wiki/Seabed"
+              },
+              {
+                "_key": "07a40a516644",
+                "_type": "link",
+                "href": "https://en.wikipedia.org/wiki/Depression_(geology)"
+              },
+              {
+                "_key": "19b3d877668b",
+                "_type": "link",
+                "href": "https://en.wikipedia.org/wiki/Lake_Baikal"
+              },
+              {
+                "_key": "3fd5268a31b6",
+                "_type": "link",
+                "href": "https://en.wikipedia.org/wiki/Lake_Tanganyika"
+              }
+            ],
+            "style": "normal"
+          }
+        ],
+        "textTransform": "none",
+        "title": "Card",
+        "typePreset": "h4",
+        "visibility": "visible-all",
+        "width": "custom",
+        "width_desktop": "custom"
+      }
+    ],
+    "contentAlignment": "center",
+    "contentAlignmentCrossAxis": "center",
+    "contentAlignmentCrossAxis_desktop": "start",
+    "contentAlignment_desktop": "center",
+    "contentDirection": "column",
+    "contentDirection_desktop": "column",
+    "cornerRadius": 0,
+    "cornerRadius_desktop": 0,
+    "gap": 12,
+    "gap_desktop": 12,
+    "height": "fullscreen",
+    "height_desktop": "landscape",
+    "overlayColor": {
+      "_type": "color",
+      "alpha": 0.6,
+      "hex": "#181919",
+      "hsl": {
+        "_type": "hslaColor",
+        "a": 0.6,
+        "h": 200,
+        "l": 0.09630000000000001,
+        "s": 0.005200000000000029
+      },
+      "hsv": {
+        "_type": "hsvaColor",
+        "a": 0.6,
+        "h": 200,
+        "s": 0.010346199761241601,
+        "v": 0.09680076000000001
+      },
+      "rgb": {
+        "_type": "rgbaColor",
+        "a": 0.6,
+        "b": 25,
+        "g": 25,
+        "r": 24
+      }
+    },
+    "paddingBlockEnd": 0,
+    "paddingBlockEnd_desktop": 0,
+    "paddingBlockStart": 0,
+    "paddingBlockStart_desktop": 0,
+    "paddingInlineEnd": 0,
+    "paddingInlineEnd_desktop": 0,
+    "paddingInlineStart": 0,
+    "paddingInlineStart_desktop": 40,
+    "sectionWidth": "full-width",
+    "shareContentSettings": false,
+    "shareLayoutSettings": false,
+    "title": "_HERO",
+    "toggleOverlay": true,
+    "videoPosition": "cover",
+    "videoPosition_desktop": "cover"
+  }
